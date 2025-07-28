@@ -1,25 +1,75 @@
+/* CSS Custom Properties */
+:root {
+    /* Colors */
+    --primary-color: #6d5160;
+    --secondary-color: #efeae2;
+    --background-color: #c2baaf;
+    --content-bg: white;
+    --text-dark: black;
+    --text-gray: gray;
+    --error-color: #D8000C;
+    --error-bg: #FFD2D2;
+    --border-light: rgba(0, 0, 0, 0.2);
+    --counter-bg: #f0f0f0;
+    --counter-text: #333;
+    --counter-border: #ccc;
+    --shadow-color: #595959;
+    --no-data-bg: #fafafa;
+    --no-data-border: #ddd;
+    
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-xxl: 3rem;
+    --spacing-xxxl: 4rem;
+    
+    /* Typography */
+    --font-family: 'Calibri', sans-serif;
+    --font-signature: 'Brush Script MT', cursive;
+    --font-size-sm: 13px;
+    --font-size-base: 14px;
+    --font-size-md: 16px;
+    --font-size-lg: larger;
+    --font-size-xl: x-large;
+    --font-size-hero: 47px;
+    --font-size-signature: 48px;
+    
+    /* Layout */
+    --container-width: 1000px;
+    --border-radius: 15px;
+    --border-radius-sm: 10px;
+    --border-radius-xs: 8px;
+    --border-radius-xxs: 4px;
+    --shadow-main: 0 0 17px var(--primary-color);
+    --shadow-container: 0 0 10px var(--primary-color);
+    --shadow-counter: 0 1px 2px var(--shadow-color);
+}
+
 /* Global Styles */
 html {
-    background-color: #c2baaf;
+    background-color: var(--background-color);
     background-image: url('../images/background.jpg');
-    font-family: 'Calibri', sans-serif;
+    font-family: var(--font-family);
 }
 
 body {
-    width: 1000px;
+    width: var(--container-width);
     margin: 0 auto;
-    margin-bottom: 4rem;
-    background-color: white;
-    border-radius: 0 0 15px 15px;
-    box-shadow: 0 0 17px #6d5160;
+    margin-bottom: var(--spacing-xxxl);
+    background-color: var(--content-bg);
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    box-shadow: var(--shadow-main);
 }
 
 /* Header Styles */
 header {
-    padding: 1rem;
+    padding: var(--spacing-md);
     padding-bottom: 0;
-    background-color: #efeae2;
-    color: #6d5160;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
 }
 
 header li {
@@ -28,16 +78,16 @@ header li {
 
 header a {
     text-decoration: none;
-    color: black;
-    margin-right: 1rem;
+    color: var(--text-dark);
+    margin-right: var(--spacing-md);
 }
 
 .nav {
-    margin-top: 2rem;
+    margin-top: var(--spacing-xl);
 }
 
 .nav li {
-    margin: 0.5rem;
+    margin: var(--spacing-sm);
     margin-left: 0;
 }
 
@@ -46,76 +96,76 @@ header a {
 }
 
 h1 {
-    font-size: 47px;
+    font-size: var(--font-size-hero);
     margin: 0;
-    margin-left: 0.5rem;
+    margin-left: var(--spacing-sm);
 }
 
 h2 {
-    font-size: larger;
-    margin-top: 0.5rem;
-    margin-left: 0.5rem;
+    font-size: var(--font-size-lg);
+    margin-top: var(--spacing-sm);
+    margin-left: var(--spacing-sm);
     font-weight: lighter;
 }
 
 /* Page Content Styles */
 .page-content {
-    padding: 1rem;
+    padding: var(--spacing-md);
     display: grid;
     grid-template-columns: 75% 25%;
 }
 
 .container {
-    margin-right: 1rem;
+    margin-right: var(--spacing-md);
 }
 
 .blog-title {
-    font-size: x-large;
+    font-size: var(--font-size-xl);
     font-weight: bold;
 }
 
 /* Side Banner Styles */
 .side-banner {
-    padding: 0.5rem;
+    padding: var(--spacing-sm);
 }
 
 .banner-title {
-    font-size: larger;
+    font-size: var(--font-size-lg);
 }
 
 .side-container {
-    padding: 0.5rem;
-    border-radius: 10px;
-    box-shadow: 0 0 10px #6d5160;
+    padding: var(--spacing-sm);
+    border-radius: var(--border-radius-sm);
+    box-shadow: var(--shadow-container);
 }
 
 .side-container a {
-    color: black;
+    color: var(--text-dark);
 }
 
 .side-container li {
-    margin-bottom: 4px;
+    margin-bottom: var(--spacing-xs);
 }
 
 .side-container img {
     vertical-align: middle;
-    margin-right: 4px;
+    margin-right: var(--spacing-xs);
 }
 
 /* Post Styles */
 .row {
     display: flex;
-    margin: 1rem 0;
-    padding-bottom: 1rem;
+    margin: var(--spacing-md) 0;
+    padding-bottom: var(--spacing-md);
 }
 
 .row.home-post {
-    border-bottom: 3px dotted rgba(0, 0, 0, 0.2);
+    border-bottom: 3px dotted var(--border-light);
 }
 
 .row.detail-post .post-content {
-    border-bottom: 3px dotted rgba(0, 0, 0, 0.2);
-    padding-bottom: 1rem;
+    border-bottom: 3px dotted var(--border-light);
+    padding-bottom: var(--spacing-md);
 }
 
 /* For photo posts only - full width image */
@@ -133,81 +183,81 @@ h2 {
 }
 
 .post {
-    margin-left: 1rem;
-    margin-bottom: 1rem;
+    margin-left: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
     width: 100%;
 }
 
 .post-title {
-    margin: 0.5rem 0;
+    margin: var(--spacing-sm) 0;
 }
 
 .post-title a {
-    font-size: larger;
+    font-size: var(--font-size-lg);
     font-weight: bold;
     display: inline;
-    color: black;
+    color: var(--text-dark);
     text-decoration: underline;
 }
 
 .post-date {
     float: right;
-    font-size: 14px;
+    font-size: var(--font-size-base);
     font-style: italic;
 }
 
 .post-content a {
     float: left;
     width: 50%;
-    margin: 0 1rem 0.5rem 0;
+    margin: 0 var(--spacing-md) var(--spacing-sm) 0;
 }
 
 .post-content img {
     padding-top: 0;
     width: 100%;
-    border-radius: 15px;
+    border-radius: var(--border-radius);
 }
 
 .quote {
-    border-right: 5px solid black;
+    border-right: 5px solid var(--text-dark);
     text-align: right;
-    padding-right: 1rem;
+    padding-right: var(--spacing-md);
 }
 
 .quote-content {
     font-style: italic;
-    font-size: 16px;
+    font-size: var(--font-size-md);
 }
 
 .quote-author {
-    font-size: 13px;
+    font-size: var(--font-size-sm);
 }
 
 /* Overview Styles */
 a.overview {
     display: block;
     text-align: center;
-    color: black;
-    margin-top: 1rem;
+    color: var(--text-dark);
+    margin-top: var(--spacing-md);
 }
 
 .overview-group {
     width: 100%;
-    border-top: 1px solid rgba(0, 0, 0, 0.2);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-    color: black;
-    padding: 0.75rem 0.5rem;
+    border-top: 1px solid var(--border-light);
+    border-bottom: 1px solid var(--border-light);
+    color: var(--text-dark);
+    padding: 0.75rem var(--spacing-sm);
     display: flex;
     justify-content: space-between;
     font-weight: normal;
-    margin-top: 2rem;
+    margin-top: var(--spacing-xl);
 }
 
 .overview-item {
     width: 100%;
-    border-top: 1px solid rgba(0, 0, 0, 0.2);
-    color: black;
-    padding: 0.75rem 0.5rem;
+    border-top: 1px solid var(--border-light);
+    color: var(--text-dark);
+    padding: 0.75rem var(--spacing-sm);
     display: flex;
     justify-content: space-between;
 }
@@ -217,7 +267,7 @@ a.overview {
 }
 
 .overview-item a {
-    color: black;
+    color: var(--text-dark);
     text-decoration: underline;
     font-weight: normal;
 }
@@ -227,12 +277,12 @@ a.overview {
 }
 
 .overview-container {
-    margin-top: 2rem;
+    margin-top: var(--spacing-xl);
 }
 
 /* Footer Styles */
 footer {
-    padding: 1rem;
+    padding: var(--spacing-md);
 }
 
 .footer-page-counter {
@@ -242,25 +292,25 @@ footer {
 }
 
 .footer-page-counter-item {
-    border-radius: 4px;
-    font-size: 16px;
+    border-radius: var(--border-radius-xxs);
+    font-size: var(--font-size-md);
     font-weight: bold;
-    padding: 4px 6px;
+    padding: var(--spacing-xs) 6px;
     margin: 0 1px;
-    box-shadow: 0 1px 2px #595959;
-    background-color: #f0f0f0;
-    color: #333;
-    border: 1px solid #ccc;
+    box-shadow: var(--shadow-counter);
+    background-color: var(--counter-bg);
+    color: var(--counter-text);
+    border: 1px solid var(--counter-border);
 }
 
 /* Miscellaneous Styles */
 .error-message {
-    color: #D8000C;
-    background-color: #FFD2D2;
+    color: var(--error-color);
+    background-color: var(--error-bg);
     margin: 10px 0;
     padding: 15px;
-    border-radius: 8px;
-    border: 1px solid #D8000C;
+    border-radius: var(--border-radius-xs);
+    border: 1px solid var(--error-color);
 }
 
 .navigate-message {
@@ -268,16 +318,16 @@ footer {
 }
 
 .about-separator {
-    border-bottom: 3px dotted rgba(0, 0, 0, 0.2);
-    margin: 1rem 0;
-    padding-bottom: 1rem;
+    border-bottom: 3px dotted var(--border-light);
+    margin: var(--spacing-md) 0;
+    padding-bottom: var(--spacing-md);
 }
 
 .signature {
-    font-size: 48px;
-    font-family: 'Brush Script MT', cursive;
+    font-size: var(--font-size-signature);
+    font-family: var(--font-signature);
     margin-block-start: 0;
-    margin-block-end: 1rem;
+    margin-block-end: var(--spacing-md);
 }
 
 ul {
@@ -288,9 +338,9 @@ ul {
 .no-data-message {
     text-align: center;
     font-style: italic;
-    color: gray;
+    color: var(--text-gray);
     margin-top: 20px;
     padding: 20px;
-    background-color: #fafafa;
-    border: 1px dashed #ddd;
+    background-color: var(--no-data-bg);
+    border: 1px dashed var(--no-data-border);
 }

@@ -18,7 +18,8 @@ src/
 │   │               └── j3lp0011
 │   │                   ├── J3lp0011Application.java
 │   │                   ├── config
-│   │                   │   └── BlogProperties.java
+│   │                   │   ├── BlogProperties.java
+│   │                   │   └── ServletConfig.java
 │   │                   ├── controller
 │   │                   │   ├── AboutMeController.java
 │   │                   │   └── BlogController.java
@@ -137,6 +138,26 @@ File Content Begin -->
               }
               [File Ends] main/java/vn/edu/funix/j3lp0011/config/BlogProperties.java
 
+              [File Begins] main/java/vn/edu/funix/j3lp0011/config/ServletConfig.java
+              package vn.edu.funix.j3lp0011.config;
+              
+              import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
+              import org.springframework.context.annotation.Bean;
+              import org.springframework.context.annotation.Configuration;
+              import vn.edu.funix.j3lp0011.listener.SessionListener;
+              
+              @Configuration
+              public class ServletConfig {
+              
+                  @Bean
+                  public ServletListenerRegistrationBean<SessionListener> sessionListenerRegistration(SessionListener sessionListener) {
+                      ServletListenerRegistrationBean<SessionListener> registrationBean = new ServletListenerRegistrationBean<>();
+                      registrationBean.setListener(sessionListener);
+                      return registrationBean;
+                  }
+              }
+              [File Ends] main/java/vn/edu/funix/j3lp0011/config/ServletConfig.java
+
               [File Begins] main/java/vn/edu/funix/j3lp0011/controller/AboutMeController.java
               package vn.edu.funix.j3lp0011.controller;
               
@@ -164,6 +185,7 @@ File Content Begin -->
               [File Begins] main/java/vn/edu/funix/j3lp0011/controller/BlogController.java
               package vn.edu.funix.j3lp0011.controller;
               
+              import jakarta.servlet.http.HttpSession;
               import lombok.RequiredArgsConstructor;
               import org.springframework.stereotype.Controller;
               import org.springframework.ui.Model;
@@ -188,7 +210,9 @@ File Content Begin -->
                   }
               
                   @GetMapping({ "/", "/home" })
-                  public String showHomePage(Model model) {
+                  public String showHomePage(Model model, HttpSession session) {
+                      // Force session creation to trigger SessionListener
+                      session.setAttribute("visited", true);
                       model.addAttribute("posts", blogService.getHomepagePosts());
                       addCommonAttributes(model);
                       return "home";
@@ -674,7 +698,7 @@ File Content Begin -->
     spring.sql.init.schema-locations=
     
     # Blog configuration
-    blog.posts.homepage-count=5
+    blog.posts.homepage-count=3
     
     # Session configuration
     server.servlet.session.timeout=30m
@@ -718,16 +742,8 @@ File Content Begin -->
       'photo',
       '',
       'i1.jpg',
-      '2024-05-10'
-    ),
-    (
-      'Another Blog Post',
-      'blog',
-      'This is another post to test pagination and ordering. It should appear after the first post but before the photo post if sorted by date.',
-      'i2.jpg',
-      '2022-08-20'
+      '2015-11-16'
     );
-    
     
     -- Insert data for social media links
     INSERT INTO social (name, icon) VALUES
@@ -870,35 +886,44 @@ File Content Begin -->
         
         .side-container a {
             color: black;
-            text-decoration: none;
         }
         
         .side-container li {
-            margin-bottom: 8px;
+            margin-bottom: 4px;
         }
         
         .side-container img {
             vertical-align: middle;
-            margin-right: 8px;
+            margin-right: 4px;
         }
         
         /* Post Styles */
         .row {
-            border-bottom: 3px dotted rgba(0, 0, 0, 0.2);
             display: flex;
             margin: 1rem 0;
             padding-bottom: 1rem;
         }
         
-        .row:last-child {
-            border-bottom: none;
+        .row.home-post {
+            border-bottom: 3px dotted rgba(0, 0, 0, 0.2);
         }
         
+        .row.detail-post .post-content {
+            border-bottom: 3px dotted rgba(0, 0, 0, 0.2);
+            padding-bottom: 1rem;
+        }
+        
+        /* For photo posts only - full width image */
+        .row.detail-post .post-content > a[style*="width: 100%"] {
+            display: block;
+            float: none;
+            width: 100%;
+            margin: 0;
+        }
         
         .row>img {
             /* The icon for the post type */
-            padding-top: 15px;
-            height: 60%;
+            padding-top: 10px;
             align-self: flex-start;
         }
         
@@ -917,7 +942,7 @@ File Content Begin -->
             font-weight: bold;
             display: inline;
             color: black;
-            text-decoration: none;
+            text-decoration: underline;
         }
         
         .post-date {
@@ -962,10 +987,14 @@ File Content Begin -->
         }
         
         .overview-group {
-            font-weight: bold;
-            font-size: 24px;
-            border-bottom: 2px solid black;
-            padding-bottom: 5px;
+            width: 100%;
+            border-top: 1px solid rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+            color: black;
+            padding: 0.75rem 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            font-weight: normal;
             margin-top: 2rem;
         }
         
@@ -984,12 +1013,12 @@ File Content Begin -->
         
         .overview-item a {
             color: black;
-            text-decoration: none;
+            text-decoration: underline;
             font-weight: normal;
         }
         
         .overview-item-date {
-            font-style: italic;
+            font-style: normal;
         }
         
         .overview-container {
@@ -1031,6 +1060,12 @@ File Content Begin -->
         
         .navigate-message {
             margin-top: 20px;
+        }
+        
+        .about-separator {
+            border-bottom: 3px dotted rgba(0, 0, 0, 0.2);
+            margin: 1rem 0;
+            padding-bottom: 1rem;
         }
         
         .signature {
@@ -1079,12 +1114,12 @@ File Content Begin -->
                   </div>
       
                   <div th:if="${aboutMe != null and aboutMe.content != null}">
-                      <div class="post-content">
+                      <div class="post-content about-separator">
                           <!-- Use utext for unescaped text to render <br/> tags -->
                           <p th:utext="${aboutMe.content}">About me content...</p>
                       </div>
       
-                      <div>
+                      <div style="margin-top: 3rem;">
                           <p>Kind regards</p>
                           <p class="signature" th:text="${aboutMe.author}">Vivianne Russell</p>
                       </div>
@@ -1192,7 +1227,7 @@ File Content Begin -->
                 <hr>
                 <div>
                     <!-- The viewCounter is an array of characters set in the SessionListener -->
-                    <div class="footer-page-counter" style="display: block;" th:if="${session.viewCounter != null}">
+                    <div class="footer-page-counter" th:if="${session.viewCounter != null}">
                         <span th:each="digit : ${session.viewCounter}" class="footer-page-counter-item" th:text="${digit}">
                         </span>
                     </div>
@@ -1232,7 +1267,7 @@ File Content Begin -->
         <html lang="en" xmlns:th="http://www.thymeleaf.org">
         
         <body>
-            <div th:fragment="post-entry(post)" class="row" th:if="${post != null}">
+            <div th:fragment="post-entry(post)" class="row home-post" th:if="${post != null}">
                 <img th:src="@{'/images/' + ${post.type} + '.png'}" alt="type icon">
                 <div class="post">
                     <div class="post-title">
@@ -1243,7 +1278,7 @@ File Content Begin -->
                         <th:block th:switch="${post.type}">
                             <!-- Case for 'photo' type -->
                             <a th:case="'photo'" th:href="@{/post/{id}(id=${post.id})}" style="width: 100%">
-                                <img th:src="@{'/images/' + ${post.imagePath}}" alt="post image">
+                                <img th:src="@{'/images/' + ${post.imagePath}}" alt="post photo">
                             </a>
         
                             <!-- Case for 'quote' type -->
@@ -1256,7 +1291,40 @@ File Content Begin -->
                             <!-- Default case (for 'blog' type) -->
                             <div th:case="*">
                                 <a th:href="@{/post/{id}(id=${post.id})}">
-                                    <img th:src="@{'/images/' + ${post.imagePath}}" alt="post image">
+                                    <img th:src="@{'/images/' + ${post.imagePath}}" alt="post photo">
+                                </a>
+                                <p th:utext="${post.content}">Blog post content...</p>
+                            </div>
+                        </th:block>
+                    </div>
+                </div>
+            </div>
+        
+            <div th:fragment="post-detail(post)" class="row detail-post" th:if="${post != null}">
+                <img th:src="@{'/images/' + ${post.type} + '.png'}" alt="type icon">
+                <div class="post">
+                    <div class="post-title">
+                        <a th:href="@{/post/{id}(id=${post.id})}" th:text="${post.title}">Post Title</a>
+                        <div class="post-date" th:text="${#temporals.format(post.createdAt, 'dd-MM-yyyy')}">16-11-2015</div>
+                    </div>
+                    <div class="post-content">
+                        <th:block th:switch="${post.type}">
+                            <!-- Case for 'photo' type -->
+                            <a th:case="'photo'" th:href="@{/post/{id}(id=${post.id})}" style="width: 100%">
+                                <img th:src="@{'/images/' + ${post.imagePath}}" alt="post photo">
+                            </a>
+        
+                            <!-- Case for 'quote' type -->
+                            <div th:case="'quote'" class="quote">
+                                <!-- The quote content is pre-processed in the PostMapper -->
+                                <q class="quote-content" th:utext="${post.quoteContent}">The quote itself...</q>
+                                <p class="quote-author" th:text="${post.quoteAuthor} + ' —'">William W. Purkey —</p>
+                            </div>
+        
+                            <!-- Default case (for 'blog' type) -->
+                            <div th:case="*">
+                                <a th:href="@{/post/{id}(id=${post.id})}">
+                                    <img th:src="@{'/images/' + ${post.imagePath}}" alt="post photo">
                                 </a>
                                 <p th:utext="${post.content}">Blog post content...</p>
                             </div>
@@ -1276,12 +1344,12 @@ File Content Begin -->
         <body>
             <div class="side-banner" th:fragment="side-banner(socials)">
                 <div class="side-container">
-                    <div class="banner-title">Share this page</div>
+                    <div class="banner-title" style="font-weight: bold;">Share this page</div>
                     <ul th:if="${socials != null and not #lists.isEmpty(socials)}">
                         <li th:each="social : ${socials}">
                             <a href="#">
                                 <img th:src="@{'/images/' + ${social.icon}}" th:alt="${social.name}">
-                                <span th:text="'Share on ' + ${social.name}">Share on Facebook</span>
+                                <span style="text-decoration: underline;" th:text="'Share on ' + ${social.name}">Share on Facebook</span>
                             </a>
                         </li>
                     </ul>
@@ -1412,7 +1480,7 @@ File Content Begin -->
                   </div>
       
                   <!-- Include the reusable fragment to display the post -->
-                  <div th:if="${post != null}" th:replace="~{fragments/post-entry :: post-entry(post=${post})}">
+                  <div th:if="${post != null}" th:replace="~{fragments/post-entry :: post-detail(post=${post})}">
                       <!-- Full post entry will be inserted here -->
                   </div>
               </div>
