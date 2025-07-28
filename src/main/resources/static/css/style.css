@@ -48,6 +48,41 @@
     --shadow-counter: 0 1px 2px var(--shadow-color);
 }
 
+/* Utility Classes */
+.container-box {
+    padding: var(--spacing-sm);
+    border-radius: var(--border-radius-sm);
+    box-shadow: var(--shadow-container);
+}
+
+.dotted-border {
+    border-bottom: 3px dotted var(--border-light);
+}
+
+.flex-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+.text-larger {
+    font-size: var(--font-size-lg);
+}
+
+.text-center {
+    text-align: center;
+}
+
+.margin-top-xl {
+    margin-top: var(--spacing-xl);
+}
+
+/* Combined utility classes for common patterns */
+.overview-base {
+    width: 100%;
+    color: var(--text-dark);
+    padding: 0.75rem var(--spacing-sm);
+}
+
 /* Global Styles */
 html {
     background-color: var(--background-color);
@@ -129,15 +164,7 @@ h2 {
     padding: var(--spacing-sm);
 }
 
-.banner-title {
-    font-size: var(--font-size-lg);
-}
 
-.side-container {
-    padding: var(--spacing-sm);
-    border-radius: var(--border-radius-sm);
-    box-shadow: var(--shadow-container);
-}
 
 .side-container a {
     color: var(--text-dark);
@@ -159,12 +186,8 @@ h2 {
     padding-bottom: var(--spacing-md);
 }
 
-.row.home-post {
-    border-bottom: 3px dotted var(--border-light);
-}
 
 .row.detail-post .post-content {
-    border-bottom: 3px dotted var(--border-light);
     padding-bottom: var(--spacing-md);
 }
 
@@ -236,30 +259,19 @@ h2 {
 /* Overview Styles */
 a.overview {
     display: block;
-    text-align: center;
     color: var(--text-dark);
     margin-top: var(--spacing-md);
 }
 
 .overview-group {
-    width: 100%;
     border-top: 1px solid var(--border-light);
     border-bottom: 1px solid var(--border-light);
-    color: var(--text-dark);
-    padding: 0.75rem var(--spacing-sm);
-    display: flex;
-    justify-content: space-between;
     font-weight: normal;
     margin-top: var(--spacing-xl);
 }
 
 .overview-item {
-    width: 100%;
     border-top: 1px solid var(--border-light);
-    color: var(--text-dark);
-    padding: 0.75rem var(--spacing-sm);
-    display: flex;
-    justify-content: space-between;
 }
 
 .overview-group+.overview-item {
@@ -318,7 +330,6 @@ footer {
 }
 
 .about-separator {
-    border-bottom: 3px dotted var(--border-light);
     margin: var(--spacing-md) 0;
     padding-bottom: var(--spacing-md);
 }
@@ -336,7 +347,6 @@ ul {
 }
 
 .no-data-message {
-    text-align: center;
     font-style: italic;
     color: var(--text-gray);
     margin-top: 20px;

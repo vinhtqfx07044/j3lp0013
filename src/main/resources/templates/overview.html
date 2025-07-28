@@ -15,19 +15,19 @@
         <div class="container">
             <div class="blog-title">Overview - My Blog</div>
 
-            <div th:if="${groupedPosts == null or #maps.isEmpty(groupedPosts)}" class="no-data-message">
+            <div th:if="${groupedPosts == null or #maps.isEmpty(groupedPosts)}" class="no-data-message text-center">
                 No posts found.
             </div>
 
             <div th:if="${groupedPosts != null and not #maps.isEmpty(groupedPosts)}" class="overview-container">
                 <!-- Outer loop for each month-year group -->
                 <div th:each="group : ${groupedPosts}">
-                    <div class="overview-group">
+                    <div class="overview-group overview-base flex-between">
                         <span th:text="${group.key}">NOVEMBER 2015</span>
                         <div class="overview-item-date">Date</div>
                     </div>
                     <!-- Inner loop for each post within the group -->
-                    <div th:each="post : ${group.value}" class="overview-item">
+                    <div th:each="post : ${group.value}" class="overview-item overview-base flex-between">
                         <a th:href="@{/post/{id}(id=${post.id})}" th:text="${post.title}">Post Title</a>
                         <div class="overview-item-date" th:text="${#temporals.format(post.createdAt, 'dd-MM-yyyy')}">
                             16-11-2015

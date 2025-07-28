@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <body>
-    <div th:fragment="post-entry(post)" class="row home-post" th:if="${post != null}">
+    <div th:fragment="post-entry(post)" class="row home-post dotted-border" th:if="${post != null}">
         <img th:src="@{'/images/' + ${post.type} + '.png'}" alt="type icon">
         <div class="post">
             <div class="post-title">
@@ -42,7 +42,7 @@
                 <a th:href="@{/post/{id}(id=${post.id})}" th:text="${post.title}">Post Title</a>
                 <div class="post-date" th:text="${#temporals.format(post.createdAt, 'dd-MM-yyyy')}">16-11-2015</div>
             </div>
-            <div class="post-content">
+            <div class="post-content dotted-border">
                 <th:block th:switch="${post.type}">
                     <!-- Case for 'photo' type -->
                     <a th:case="'photo'" th:href="@{/post/{id}(id=${post.id})}" style="width: 100%">

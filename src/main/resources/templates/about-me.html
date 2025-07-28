@@ -15,12 +15,12 @@
         <div class="container">
             <div class="blog-title">About Me</div>
 
-            <div th:if="${aboutMe == null or aboutMe.content == null}" class="no-data-message">
+            <div th:if="${aboutMe == null or aboutMe.content == null}" class="no-data-message text-center">
                 No information available.
             </div>
 
             <div th:if="${aboutMe != null and aboutMe.content != null}">
-                <div class="post-content about-separator">
+                <div class="post-content about-separator dotted-border">
                     <!-- Use utext for unescaped text to render <br/> tags -->
                     <p th:utext="${aboutMe.content}">About me content...</p>
                 </div>

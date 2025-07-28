@@ -16,7 +16,7 @@
             <div class="blog-title">My Blog</div>
 
 
-            <div th:if="${posts == null or #lists.isEmpty(posts)}" class="no-data-message">
+            <div th:if="${posts == null or #lists.isEmpty(posts)}" class="no-data-message text-center">
                 No posts found.
             </div>
 
@@ -32,7 +32,7 @@
         <div th:replace="~{fragments/side-banner :: side-banner(socials=${socials})}"></div>
 
         <div>
-            <a class="overview" th:href="@{/overview}">Overview</a>
+            <a class="overview text-center" th:href="@{/overview}">Overview</a>
         </div>
     </div>
 

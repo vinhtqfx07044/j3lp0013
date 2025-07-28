@@ -13,7 +13,7 @@
 
     <div class="page-content">
         <div class="container">
-            <div th:if="${post == null}" class="no-data-message">
+            <div th:if="${post == null}" class="no-data-message text-center">
                 The post you are looking for does not exist.
             </div>
 
@@ -27,7 +27,7 @@
         <div th:replace="~{fragments/side-banner :: side-banner(socials=${socials})}"></div>
 
         <div>
-            <a class="overview" th:href="@{/overview}">Overview</a>
+            <a class="overview text-center" th:href="@{/overview}">Overview</a>
         </div>
     </div>
 
