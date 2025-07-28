@@ -18,7 +18,7 @@
     --shadow-color: #595959;
     --no-data-bg: #fafafa;
     --no-data-border: #ddd;
-    
+
     /* Spacing */
     --spacing-xs: 0.25rem;
     --spacing-sm: 0.5rem;
@@ -27,18 +27,16 @@
     --spacing-xl: 2rem;
     --spacing-xxl: 3rem;
     --spacing-xxxl: 4rem;
-    
+
     /* Typography */
     --font-family: 'Calibri', sans-serif;
     --font-signature: 'Brush Script MT', cursive;
-    --font-size-sm: 13px;
     --font-size-base: 14px;
     --font-size-md: 16px;
     --font-size-lg: larger;
     --font-size-xl: x-large;
     --font-size-hero: 47px;
-    --font-size-signature: 48px;
-    
+
     /* Layout */
     --container-width: 1000px;
     --border-radius: 15px;
@@ -249,7 +247,7 @@ h2 {
     padding-bottom: var(--spacing-md);
 }
 
-.row > img {
+.row>img {
     padding-top: 10px;
     align-self: flex-start;
 }
@@ -269,7 +267,7 @@ h2 {
 }
 
 .quote-author {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
 }
 
 /* ================================
@@ -312,7 +310,7 @@ h2 {
     border-top: 1px solid var(--border-light);
 }
 
-.overview-group + .overview-item {
+.overview-group+.overview-item {
     border-top: none;
 }
 
@@ -378,7 +376,7 @@ footer {
 }
 
 .signature {
-    font-size: var(--font-size-signature);
+    font-size: var(--font-size-hero);
     font-family: var(--font-signature);
     margin-block-start: 0;
     margin-block-end: var(--spacing-md);

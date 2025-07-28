@@ -15,7 +15,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ModelAndView handlePostNotFoundException(PostNotFoundException ex) {
         log.warn("Handling PostNotFoundException: {}", ex.getMessage());
-        ModelAndView mav = new ModelAndView("error/404");
+        ModelAndView mav = new ModelAndView("error-404");
         mav.addObject("errorMessage", ex.getMessage());
         return mav;
     }
