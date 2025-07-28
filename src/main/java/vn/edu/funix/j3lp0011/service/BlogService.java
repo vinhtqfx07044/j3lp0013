@@ -1,7 +1,7 @@
 package vn.edu.funix.j3lp0011.service;
 
 import lombok.RequiredArgsConstructor;
-import vn.edu.funix.j3lp0011.config.BlogProperties;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -33,10 +33,11 @@ public class BlogService {
     private final AboutMeMapper aboutMeMapper;
     private final SocialMapper socialMapper;
 
-    private final BlogProperties blogProperties;
+    @Value("${blog.posts.homepage-count:3}")
+    private int homepageCount;
 
     public List<PostDto> getHomepagePosts() {
-        var pageable = PageRequest.of(0, blogProperties.getPosts().getHomepageCount());
+        var pageable = PageRequest.of(0, homepageCount);
         var posts = postRepository.findByOrderByCreatedAtDesc(pageable);
         return postMapper.toDtoList(posts);
     }
