@@ -83,6 +83,63 @@
     padding: 0.75rem var(--spacing-sm);
 }
 
+/* Post Components */
+.post-base {
+    margin-left: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    width: 100%;
+}
+
+.post-title-base {
+    margin: var(--spacing-sm) 0;
+}
+
+.post-title-link {
+    font-size: var(--font-size-lg);
+    font-weight: bold;
+    display: inline;
+    color: var(--text-dark);
+    text-decoration: underline;
+}
+
+.post-date-base {
+    float: right;
+    font-size: var(--font-size-base);
+    font-style: italic;
+}
+
+.post-image {
+    padding-top: 0;
+    width: 100%;
+    border-radius: var(--border-radius);
+}
+
+.post-content-base {
+    padding-bottom: var(--spacing-md);
+}
+
+.photo-post-link {
+    display: block;
+    float: none;
+    width: 100%;
+    margin: 0;
+}
+
+.photo-post-detail {
+    display: block;
+    float: none;
+    width: 100%;
+    margin: 0;
+}
+
+.banner-title-bold {
+    font-weight: bold;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
 /* Global Styles */
 html {
     background-color: var(--background-color);
@@ -187,17 +244,7 @@ h2 {
 }
 
 
-.row.detail-post .post-content {
-    padding-bottom: var(--spacing-md);
-}
 
-/* For photo posts only - full width image */
-.row.detail-post .post-content > a[style*="width: 100%"] {
-    display: block;
-    float: none;
-    width: 100%;
-    margin: 0;
-}
 
 .row>img {
     /* The icon for the post type */
@@ -205,41 +252,16 @@ h2 {
     align-self: flex-start;
 }
 
-.post {
-    margin-left: var(--spacing-md);
-    margin-bottom: var(--spacing-md);
-    width: 100%;
-}
 
-.post-title {
-    margin: var(--spacing-sm) 0;
-}
 
-.post-title a {
-    font-size: var(--font-size-lg);
-    font-weight: bold;
-    display: inline;
-    color: var(--text-dark);
-    text-decoration: underline;
-}
 
-.post-date {
-    float: right;
-    font-size: var(--font-size-base);
-    font-style: italic;
-}
 
-.post-content a {
+.post-content-link {
     float: left;
     width: 50%;
     margin: 0 var(--spacing-md) var(--spacing-sm) 0;
 }
 
-.post-content img {
-    padding-top: 0;
-    width: 100%;
-    border-radius: var(--border-radius);
-}
 
 .quote {
     border-right: 5px solid var(--text-dark);
@@ -290,6 +312,7 @@ a.overview {
 
 .overview-container {
     margin-top: var(--spacing-xl);
+    margin-right: var(--spacing-md);
 }
 
 /* Footer Styles */
