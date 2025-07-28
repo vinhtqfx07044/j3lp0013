@@ -1,4 +1,6 @@
-/* CSS Custom Properties */
+/* ================================
+   CSS CUSTOM PROPERTIES (VARIABLES)
+   ================================ */
 :root {
     /* Colors */
     --primary-color: #6d5160;
@@ -48,7 +50,32 @@
     --shadow-counter: 0 1px 2px var(--shadow-color);
 }
 
-/* Utility Classes */
+/* ================================
+   GLOBAL STYLES
+   ================================ */
+html {
+    background-color: var(--background-color);
+    background-image: url('../images/background.jpg');
+    font-family: var(--font-family);
+}
+
+body {
+    width: var(--container-width);
+    margin: 0 auto;
+    margin-bottom: var(--spacing-xxxl);
+    background-color: var(--content-bg);
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    box-shadow: var(--shadow-main);
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+/* ================================
+   UTILITY CLASSES
+   ================================ */
 .container-box {
     padding: var(--spacing-sm);
     border-radius: var(--border-radius-sm);
@@ -87,62 +114,6 @@
     margin-top: var(--spacing-xl);
 }
 
-/* Combined utility classes for common patterns */
-.overview-base {
-    width: 100%;
-    color: var(--text-dark);
-    padding: 0.75rem var(--spacing-sm);
-}
-
-/* Post Components */
-.post-base {
-    margin-left: var(--spacing-md);
-    margin-bottom: var(--spacing-md);
-    width: 100%;
-}
-
-.post-title-base {
-    margin: var(--spacing-sm) 0;
-}
-
-.post-title-link {
-    font-size: var(--font-size-lg);
-    font-weight: bold;
-    display: inline;
-    color: var(--text-dark);
-    text-decoration: underline;
-}
-
-.post-date-base {
-    float: right;
-    font-size: var(--font-size-base);
-    font-style: italic;
-}
-
-.post-image {
-    padding-top: 0;
-    width: 100%;
-    border-radius: var(--border-radius);
-}
-
-.post-content-base {
-    padding-bottom: var(--spacing-md);
-}
-
-.photo-post-link {
-    display: block;
-    float: none;
-    width: 100%;
-    margin: 0;
-}
-
-.photo-post-detail {
-    display: block;
-    float: none;
-    width: 100%;
-    margin: 0;
-}
-
 .banner-title-bold {
     font-weight: bold;
 }
@@ -151,23 +122,9 @@
     text-decoration: underline;
 }
 
-/* Global Styles */
-html {
-    background-color: var(--background-color);
-    background-image: url('../images/background.jpg');
-    font-family: var(--font-family);
-}
-
-body {
-    width: var(--container-width);
-    margin: 0 auto;
-    margin-bottom: var(--spacing-xxxl);
-    background-color: var(--content-bg);
-    border-radius: 0 0 var(--border-radius) var(--border-radius);
-    box-shadow: var(--shadow-main);
-}
-
-/* Header Styles */
+/* ================================
+   HEADER STYLES
+   ================================ */
 header {
     padding: var(--spacing-md);
     padding-bottom: 0;
@@ -211,7 +168,9 @@ h2 {
     font-weight: lighter;
 }
 
-/* Page Content Styles */
+/* ================================
+   PAGE LAYOUT
+   ================================ */
 .page-content {
     padding: var(--spacing-md);
     display: grid;
@@ -227,45 +186,42 @@ h2 {
     font-weight: bold;
 }
 
-/* Side Banner Styles */
-.side-banner {
-    padding: var(--spacing-sm);
+/* ================================
+   POST COMPONENTS
+   ================================ */
+.post-base {
+    margin-left: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    width: 100%;
 }
 
+.post-title-base {
+    margin: var(--spacing-sm) 0;
+}
 
-
-.side-container a {
+.post-title-link {
+    font-size: var(--font-size-lg);
+    font-weight: bold;
+    display: inline;
     color: var(--text-dark);
+    text-decoration: underline;
 }
 
-.side-container li {
-    margin-bottom: var(--spacing-xs);
+.post-date-base {
+    float: right;
+    font-size: var(--font-size-base);
+    font-style: italic;
 }
 
-.side-container img {
-    vertical-align: middle;
-    margin-right: var(--spacing-xs);
+.post-image {
+    padding-top: 0;
+    width: 100%;
+    border-radius: var(--border-radius);
 }
 
-/* Post Styles */
-.row {
-    display: flex;
-    margin: var(--spacing-md) 0;
+.post-content-base {
     padding-bottom: var(--spacing-md);
 }
-
-
-
-
-.row>img {
-    /* The icon for the post type */
-    padding-top: 10px;
-    align-self: flex-start;
-}
-
-
-
-
 
 .post-content-link {
     float: left;
@@ -273,7 +229,34 @@ h2 {
     margin: 0 var(--spacing-md) var(--spacing-sm) 0;
 }
 
+.photo-post-link {
+    display: block;
+    float: none;
+    width: 100%;
+    margin: 0;
+}
 
+.photo-post-detail {
+    display: block;
+    float: none;
+    width: 100%;
+    margin: 0;
+}
+
+.row {
+    display: flex;
+    margin: var(--spacing-md) 0;
+    padding-bottom: var(--spacing-md);
+}
+
+.row > img {
+    padding-top: 10px;
+    align-self: flex-start;
+}
+
+/* ================================
+   QUOTE STYLES
+   ================================ */
 .quote {
     border-right: 5px solid var(--text-dark);
     text-align: right;
@@ -289,7 +272,34 @@ h2 {
     font-size: var(--font-size-sm);
 }
 
-/* Overview Styles */
+/* ================================
+   SIDE BANNER
+   ================================ */
+.side-banner {
+    padding: var(--spacing-sm);
+}
+
+.side-container a {
+    color: var(--text-dark);
+}
+
+.side-container li {
+    margin-bottom: var(--spacing-xs);
+}
+
+.side-container img {
+    vertical-align: middle;
+    margin-right: var(--spacing-xs);
+}
+
+/* ================================
+   OVERVIEW PAGE
+   ================================ */
+.overview-base {
+    width: 100%;
+    color: var(--text-dark);
+    padding: 0.75rem var(--spacing-sm);
+}
 
 .overview-group {
     border-top: 1px solid var(--border-light);
@@ -302,7 +312,7 @@ h2 {
     border-top: 1px solid var(--border-light);
 }
 
-.overview-group+.overview-item {
+.overview-group + .overview-item {
     border-top: none;
 }
 
@@ -321,7 +331,9 @@ h2 {
     margin-right: var(--spacing-md);
 }
 
-/* Footer Styles */
+/* ================================
+   FOOTER
+   ================================ */
 footer {
     padding: var(--spacing-md);
 }
@@ -344,7 +356,9 @@ footer {
     border: 1px solid var(--counter-border);
 }
 
-/* Miscellaneous Styles */
+/* ================================
+   MISCELLANEOUS
+   ================================ */
 .error-message {
     color: var(--error-color);
     background-color: var(--error-bg);
@@ -368,11 +382,6 @@ footer {
     font-family: var(--font-signature);
     margin-block-start: 0;
     margin-block-end: var(--spacing-md);
-}
-
-ul {
-    list-style: none;
-    padding: 0;
 }
 
 .no-data-message {
