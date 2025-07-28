@@ -1,0 +1,1723 @@
+Repository Documentation
+This document provides a comprehensive overview of the repository's structure and contents.
+The first section, titled 'Directory/File Tree', displays the repository's hierarchy in a tree format.
+In this section, directories and files are listed using tree branches to indicate their structure and relationships.
+Following the tree representation, the 'File Content' section details the contents of each file in the repository.
+Each file's content is introduced with a '[File Begins]' marker followed by the file's relative path,
+and the content is displayed verbatim. The end of each file's content is marked with a '[File Ends]' marker.
+This format ensures a clear and orderly presentation of both the structure and the detailed contents of the repository.
+
+Directory/File Tree Begins -->
+
+src/
+├── main
+│   ├── java
+│   │   └── vn
+│   │       └── edu
+│   │           └── funix
+│   │               └── j3lp0011
+│   │                   ├── J3lp0011Application.java
+│   │                   ├── config
+│   │                   │   └── BlogProperties.java
+│   │                   ├── controller
+│   │                   │   ├── AboutMeController.java
+│   │                   │   └── BlogController.java
+│   │                   ├── dto
+│   │                   │   ├── AboutMeDto.java
+│   │                   │   ├── PostDto.java
+│   │                   │   └── SocialDto.java
+│   │                   ├── entity
+│   │                   │   ├── AboutMe.java
+│   │                   │   ├── Post.java
+│   │                   │   ├── Social.java
+│   │                   │   └── TotalViews.java
+│   │                   ├── exception
+│   │                   │   ├── GlobalExceptionHandler.java
+│   │                   │   └── PostNotFoundException.java
+│   │                   ├── listener
+│   │                   │   └── SessionListener.java
+│   │                   ├── mapper
+│   │                   │   ├── AboutMeMapper.java
+│   │                   │   ├── PostMapper.java
+│   │                   │   └── SocialMapper.java
+│   │                   ├── repository
+│   │                   │   ├── AboutMeRepository.java
+│   │                   │   ├── PostRepository.java
+│   │                   │   ├── SocialRepository.java
+│   │                   │   └── TotalViewsRepository.java
+│   │                   └── service
+│   │                       ├── BlogService.java
+│   │                       └── ViewCounterService.java
+│   └── resources
+│       ├── application.properties
+│       ├── data.sql
+│       ├── schema.sql
+│       ├── static
+│       │   ├── css
+│       │   │   └── style.css
+│       │   └── images
+│       └── templates
+│           ├── about-me.html
+│           ├── error
+│           │   ├── 404.html
+│           │   └── 500.html
+│           ├── error.html
+│           ├── fragments
+│           │   ├── footer.html
+│           │   ├── header.html
+│           │   ├── post-entry.html
+│           │   └── side-banner.html
+│           ├── home.html
+│           ├── overview.html
+│           └── post-detail.html
+└── test
+    └── java
+        └── vn
+            └── edu
+                └── funix
+                    └── j3lp0011
+                        ├── J3lp0011ApplicationTests.java
+                        ├── controller
+                        │   └── BlogControllerTest.java
+                        └── service
+                            └── BlogServiceTest.java
+
+<-- Directory/File Tree Ends
+
+File Content Begin -->
+            [File Begins] main/java/vn/edu/funix/j3lp0011/J3lp0011Application.java
+            package vn.edu.funix.j3lp0011;
+            
+            import org.springframework.boot.SpringApplication;
+            import org.springframework.boot.autoconfigure.SpringBootApplication;
+            import org.springframework.boot.web.servlet.ServletComponentScan;
+            
+            @SpringBootApplication
+            @ServletComponentScan
+            public class J3lp0011Application {
+            
+                public static void main(String[] args) {
+                    SpringApplication.run(J3lp0011Application.class, args);
+                }
+            
+            }
+            [File Ends] main/java/vn/edu/funix/j3lp0011/J3lp0011Application.java
+
+              [File Begins] main/java/vn/edu/funix/j3lp0011/config/BlogProperties.java
+              package vn.edu.funix.j3lp0011.config;
+              
+              import org.springframework.boot.context.properties.ConfigurationProperties;
+              import org.springframework.stereotype.Component;
+              
+              @Component
+              @ConfigurationProperties(prefix = "blog")
+              public class BlogProperties {
+                  
+                  private Posts posts = new Posts();
+                  
+                  public Posts getPosts() {
+                      return posts;
+                  }
+                  
+                  public void setPosts(Posts posts) {
+                      this.posts = posts;
+                  }
+                  
+                  public static class Posts {
+                      private int homepageCount = 5;
+                      
+                      public int getHomepageCount() {
+                          return homepageCount;
+                      }
+                      
+                      public void setHomepageCount(int homepageCount) {
+                          this.homepageCount = homepageCount;
+                      }
+                  }
+              }
+              [File Ends] main/java/vn/edu/funix/j3lp0011/config/BlogProperties.java
+
+              [File Begins] main/java/vn/edu/funix/j3lp0011/controller/AboutMeController.java
+              package vn.edu.funix.j3lp0011.controller;
+              
+              import lombok.RequiredArgsConstructor;
+              import org.springframework.stereotype.Controller;
+              import org.springframework.ui.Model;
+              import org.springframework.web.bind.annotation.GetMapping;
+              import vn.edu.funix.j3lp0011.service.BlogService;
+              
+              @Controller
+              @RequiredArgsConstructor
+              public class AboutMeController {
+              
+                  private final BlogService blogService;
+              
+                  @GetMapping("/about-me")
+                  public String showAboutMePage(Model model) {
+                      model.addAttribute("aboutMe", blogService.getAboutMe());
+                      model.addAttribute("socials", blogService.getSocials());
+                      return "about-me";
+                  }
+              }
+              [File Ends] main/java/vn/edu/funix/j3lp0011/controller/AboutMeController.java
+
+              [File Begins] main/java/vn/edu/funix/j3lp0011/controller/BlogController.java
+              package vn.edu.funix.j3lp0011.controller;
+              
+              import lombok.RequiredArgsConstructor;
+              import org.springframework.stereotype.Controller;
+              import org.springframework.ui.Model;
+              import org.springframework.web.bind.annotation.GetMapping;
+              import org.springframework.web.bind.annotation.PathVariable;
+              import org.springframework.web.bind.annotation.RequestMapping;
+              import org.springframework.web.bind.annotation.ResponseBody;
+              import vn.edu.funix.j3lp0011.dto.PostDto;
+              
+              import java.util.List;
+              import vn.edu.funix.j3lp0011.service.BlogService;
+              
+              @Controller
+              @RequiredArgsConstructor
+              @RequestMapping("/")
+              public class BlogController {
+              
+                  private final BlogService blogService;
+              
+                  private void addCommonAttributes(Model model) {
+                      model.addAttribute("socials", blogService.getSocials());
+                  }
+              
+                  @GetMapping({ "/", "/home" })
+                  public String showHomePage(Model model) {
+                      model.addAttribute("posts", blogService.getHomepagePosts());
+                      addCommonAttributes(model);
+                      return "home";
+                  }
+              
+                  @GetMapping("/post/{id}")
+                  public String showPostDetailPage(@PathVariable int id, Model model) {
+                      model.addAttribute("post", blogService.getPostById(id));
+                      addCommonAttributes(model);
+                      return "post-detail";
+                  }
+              
+                  @GetMapping("/overview")
+                  public String showOverviewPage(Model model) {
+                      model.addAttribute("groupedPosts", blogService.getGroupedPosts());
+                      addCommonAttributes(model);
+                      return "overview";
+                  }
+              
+                  @GetMapping("/api/posts")
+                  @ResponseBody
+                  public List<PostDto> getPostsApi() {
+                      return blogService.getHomepagePosts();
+                  }
+              }
+              [File Ends] main/java/vn/edu/funix/j3lp0011/controller/BlogController.java
+
+              [File Begins] main/java/vn/edu/funix/j3lp0011/dto/AboutMeDto.java
+              package vn.edu.funix.j3lp0011.dto;
+              
+              import lombok.Data;
+              
+              @Data
+              public class AboutMeDto {
+                  private String content;
+                  private String author;
+              }
+              [File Ends] main/java/vn/edu/funix/j3lp0011/dto/AboutMeDto.java
+
+              [File Begins] main/java/vn/edu/funix/j3lp0011/dto/PostDto.java
+              package vn.edu.funix.j3lp0011.dto;
+              
+              import lombok.Data;
+              import java.time.LocalDate;
+              
+              @Data
+              public class PostDto {
+                  private int id;
+                  private String title;
+                  private String type;
+                  private String content;
+                  private String imagePath;
+                  private LocalDate createdAt;
+                  private String quoteContent;
+                  private String quoteAuthor;
+              }
+              [File Ends] main/java/vn/edu/funix/j3lp0011/dto/PostDto.java
+
+              [File Begins] main/java/vn/edu/funix/j3lp0011/dto/SocialDto.java
+              package vn.edu.funix.j3lp0011.dto;
+              
+              import lombok.Data;
+              
+              @Data
+              public class SocialDto {
+                  private String name;
+                  private String icon;
+              }
+              [File Ends] main/java/vn/edu/funix/j3lp0011/dto/SocialDto.java
+
+              [File Begins] main/java/vn/edu/funix/j3lp0011/entity/AboutMe.java
+              package vn.edu.funix.j3lp0011.entity;
+              
+              import jakarta.persistence.Column;
+              import jakarta.persistence.Entity;
+              import jakarta.persistence.Id;
+              import jakarta.persistence.Table;
+              import lombok.Data;
+              
+              @Data
+              @Entity
+              @Table(name = "about_me")
+              public class AboutMe {
+                  @Id
+                  private int id;
+                  @Column(length = 4000)
+                  private String content;
+                  private String author;
+              }
+              [File Ends] main/java/vn/edu/funix/j3lp0011/entity/AboutMe.java
+
+              [File Begins] main/java/vn/edu/funix/j3lp0011/entity/Post.java
+              package vn.edu.funix.j3lp0011.entity;
+              
+              import jakarta.persistence.*;
+              import lombok.Data;
+              import java.time.LocalDate;
+              
+              @Data
+              @Entity
+              @Table(name = "post")
+              public class Post {
+                  @Id
+                  @GeneratedValue(strategy = GenerationType.IDENTITY)
+                  private int id;
+                  private String title;
+                  private String type;
+                  @Column(length = 2000)
+                  private String content;
+                  @Column(name = "image_path")
+                  private String imagePath;
+                  @Column(name = "created_at")
+                  private LocalDate createdAt;
+              }
+              [File Ends] main/java/vn/edu/funix/j3lp0011/entity/Post.java
+
+              [File Begins] main/java/vn/edu/funix/j3lp0011/entity/Social.java
+              package vn.edu.funix.j3lp0011.entity;
+              
+              import jakarta.persistence.*;
+              import lombok.Data;
+              
+              @Data
+              @Entity
+              @Table(name = "social")
+              public class Social {
+                  @Id
+                  @GeneratedValue(strategy = GenerationType.IDENTITY)
+                  private int id;
+                  private String name;
+                  private String icon;
+              }
+              [File Ends] main/java/vn/edu/funix/j3lp0011/entity/Social.java
+
+              [File Begins] main/java/vn/edu/funix/j3lp0011/entity/TotalViews.java
+              package vn.edu.funix.j3lp0011.entity;
+              
+              import jakarta.persistence.Column;
+              import jakarta.persistence.Entity;
+              import jakarta.persistence.Id;
+              import jakarta.persistence.Table;
+              import lombok.Data;
+              
+              @Data
+              @Entity
+              @Table(name = "total_views")
+              public class TotalViews {
+                  @Id
+                  private int id;
+                  @Column(name = "view_count")
+                  private int viewCount;
+              }
+              [File Ends] main/java/vn/edu/funix/j3lp0011/entity/TotalViews.java
+
+              [File Begins] main/java/vn/edu/funix/j3lp0011/exception/GlobalExceptionHandler.java
+              package vn.edu.funix.j3lp0011.exception;
+              
+              import lombok.extern.slf4j.Slf4j;
+              import org.springframework.http.HttpStatus;
+              import org.springframework.web.bind.annotation.ControllerAdvice;
+              import org.springframework.web.bind.annotation.ExceptionHandler;
+              import org.springframework.web.bind.annotation.ResponseStatus;
+              import org.springframework.web.servlet.ModelAndView;
+              
+              @Slf4j
+              @ControllerAdvice
+              public class GlobalExceptionHandler {
+              
+                  @ExceptionHandler(PostNotFoundException.class)
+                  @ResponseStatus(HttpStatus.NOT_FOUND)
+                  public ModelAndView handlePostNotFoundException(PostNotFoundException ex) {
+                      log.warn("Handling PostNotFoundException: {}", ex.getMessage());
+                      ModelAndView mav = new ModelAndView("error/404");
+                      mav.addObject("errorMessage", ex.getMessage());
+                      return mav;
+                  }
+              
+                  @ExceptionHandler(Exception.class)
+                  public ModelAndView handleGenericException(Exception ex) {
+                      log.error("An unexpected error occurred", ex);
+                      ModelAndView mav = new ModelAndView("error");
+                      mav.addObject("errorMessage", "An unexpected error occurred. Please try again later.");
+                      return mav;
+                  }
+              }
+              [File Ends] main/java/vn/edu/funix/j3lp0011/exception/GlobalExceptionHandler.java
+
+              [File Begins] main/java/vn/edu/funix/j3lp0011/exception/PostNotFoundException.java
+              package vn.edu.funix.j3lp0011.exception;
+              
+              import org.springframework.http.HttpStatus;
+              import org.springframework.web.bind.annotation.ResponseStatus;
+              
+              @ResponseStatus(value = HttpStatus.NOT_FOUND)
+              public class PostNotFoundException extends RuntimeException {
+                  public PostNotFoundException(String message) {
+                      super(message);
+                  }
+              }
+              [File Ends] main/java/vn/edu/funix/j3lp0011/exception/PostNotFoundException.java
+
+              [File Begins] main/java/vn/edu/funix/j3lp0011/listener/SessionListener.java
+              package vn.edu.funix.j3lp0011.listener;
+              
+              import jakarta.servlet.http.HttpSession;
+              import jakarta.servlet.http.HttpSessionEvent;
+              import jakarta.servlet.http.HttpSessionListener;
+              import lombok.extern.slf4j.Slf4j;
+              import org.springframework.stereotype.Component;
+              import vn.edu.funix.j3lp0011.service.ViewCounterService;
+              
+              @Slf4j
+              @Component
+              public class SessionListener implements HttpSessionListener {
+              
+                  private final ViewCounterService viewCounterService;
+              
+                  public SessionListener(ViewCounterService viewCounterService) {
+                      this.viewCounterService = viewCounterService;
+                  }
+              
+                  @Override
+                  public void sessionCreated(HttpSessionEvent se) {
+                      log.info("New session created. Incrementing view count.");
+                      try {
+                          int currentViews = viewCounterService.incrementAndGetViews();
+                          log.info("Total views are now: {}", currentViews);
+              
+                          // Format và lưu vào session để footer hiển thị
+                          String formattedCount = String.format("%06d", currentViews);
+                          String[] countArray = formattedCount.split("");
+              
+                          HttpSession session = se.getSession();
+                          session.setAttribute("viewCounter", countArray);
+              
+                      } catch (Exception e) {
+                          log.error("Could not increment and update view count in session.", e);
+                      }
+                  }
+              
+                  @Override
+                  public void sessionDestroyed(HttpSessionEvent se) {
+                      log.info("Session destroyed.");
+                  }
+              }
+              [File Ends] main/java/vn/edu/funix/j3lp0011/listener/SessionListener.java
+
+              [File Begins] main/java/vn/edu/funix/j3lp0011/mapper/AboutMeMapper.java
+              package vn.edu.funix.j3lp0011.mapper;
+              
+              import org.mapstruct.Mapper;
+              import vn.edu.funix.j3lp0011.dto.AboutMeDto;
+              import vn.edu.funix.j3lp0011.entity.AboutMe;
+              
+              @Mapper(componentModel = "spring")
+              public interface AboutMeMapper {
+                  AboutMeDto toDto(AboutMe aboutMe);
+              }
+              [File Ends] main/java/vn/edu/funix/j3lp0011/mapper/AboutMeMapper.java
+
+              [File Begins] main/java/vn/edu/funix/j3lp0011/mapper/PostMapper.java
+              package vn.edu.funix.j3lp0011.mapper;
+              
+              import org.mapstruct.Mapper;
+              import org.mapstruct.Mapping;
+              import org.mapstruct.Named;
+              import vn.edu.funix.j3lp0011.dto.PostDto;
+              import vn.edu.funix.j3lp0011.entity.Post;
+              
+              import java.util.List;
+              
+              @Mapper(componentModel = "spring")
+              public interface PostMapper {
+              
+                  @Mapping(target = "quoteContent", source = "content", qualifiedByName = "extractQuoteContent")
+                  @Mapping(target = "quoteAuthor", source = "content", qualifiedByName = "extractQuoteAuthor")
+                  PostDto toDto(Post post);
+              
+                  List<PostDto> toDtoList(List<Post> posts);
+              
+                  @Named("extractQuoteContent")
+                  default String extractQuoteContent(String content) {
+                      if (content == null || !content.contains("-")) {
+                          return content;
+                      }
+                      return content.substring(0, content.lastIndexOf("-")).trim();
+                  }
+              
+                  @Named("extractQuoteAuthor")
+                  default String extractQuoteAuthor(String content) {
+                      if (content == null || !content.contains("-")) {
+                          return null;
+                      }
+                      return content.substring(content.lastIndexOf("-") + 1).trim();
+                  }
+              }
+              [File Ends] main/java/vn/edu/funix/j3lp0011/mapper/PostMapper.java
+
+              [File Begins] main/java/vn/edu/funix/j3lp0011/mapper/SocialMapper.java
+              package vn.edu.funix.j3lp0011.mapper;
+              
+              import org.mapstruct.Mapper;
+              import vn.edu.funix.j3lp0011.dto.SocialDto;
+              import vn.edu.funix.j3lp0011.entity.Social;
+              
+              import java.util.List;
+              
+              @Mapper(componentModel = "spring")
+              public interface SocialMapper {
+                  List<SocialDto> toDtoList(List<Social> socials);
+              }
+              [File Ends] main/java/vn/edu/funix/j3lp0011/mapper/SocialMapper.java
+
+              [File Begins] main/java/vn/edu/funix/j3lp0011/repository/AboutMeRepository.java
+              package vn.edu.funix.j3lp0011.repository;
+              
+              import org.springframework.data.jpa.repository.JpaRepository;
+              import vn.edu.funix.j3lp0011.entity.AboutMe;
+              
+              public interface AboutMeRepository extends JpaRepository<AboutMe, Integer> {
+              }
+              [File Ends] main/java/vn/edu/funix/j3lp0011/repository/AboutMeRepository.java
+
+              [File Begins] main/java/vn/edu/funix/j3lp0011/repository/PostRepository.java
+              package vn.edu.funix.j3lp0011.repository;
+              
+              import org.springframework.data.domain.Pageable;
+              import org.springframework.data.jpa.repository.JpaRepository;
+              import org.springframework.stereotype.Repository;
+              import vn.edu.funix.j3lp0011.entity.Post;
+              
+              import java.util.List;
+              
+              @Repository
+              public interface PostRepository extends JpaRepository<Post, Integer> {
+                  List<Post> findByOrderByCreatedAtDesc(Pageable pageable);
+              }
+              [File Ends] main/java/vn/edu/funix/j3lp0011/repository/PostRepository.java
+
+              [File Begins] main/java/vn/edu/funix/j3lp0011/repository/SocialRepository.java
+              package vn.edu.funix.j3lp0011.repository;
+              
+              import org.springframework.data.jpa.repository.JpaRepository;
+              import vn.edu.funix.j3lp0011.entity.Social;
+              
+              public interface SocialRepository extends JpaRepository<Social, Integer> {
+              }
+              [File Ends] main/java/vn/edu/funix/j3lp0011/repository/SocialRepository.java
+
+              [File Begins] main/java/vn/edu/funix/j3lp0011/repository/TotalViewsRepository.java
+              package vn.edu.funix.j3lp0011.repository;
+              
+              import org.springframework.data.jpa.repository.JpaRepository;
+              import org.springframework.data.jpa.repository.Modifying;
+              import org.springframework.data.jpa.repository.Query;
+              import vn.edu.funix.j3lp0011.entity.TotalViews;
+              
+              public interface TotalViewsRepository extends JpaRepository<TotalViews, Integer> {
+                  @Modifying
+                  @Query("UPDATE TotalViews v SET v.viewCount = v.viewCount + 1 WHERE v.id = 1")
+                  void incrementViewCount();
+              }
+              [File Ends] main/java/vn/edu/funix/j3lp0011/repository/TotalViewsRepository.java
+
+              [File Begins] main/java/vn/edu/funix/j3lp0011/service/BlogService.java
+              package vn.edu.funix.j3lp0011.service;
+              
+              import lombok.RequiredArgsConstructor;
+              import vn.edu.funix.j3lp0011.config.BlogProperties;
+              import org.springframework.data.domain.PageRequest;
+              import org.springframework.data.domain.Sort;
+              import org.springframework.stereotype.Service;
+              import vn.edu.funix.j3lp0011.dto.AboutMeDto;
+              import vn.edu.funix.j3lp0011.dto.PostDto;
+              import vn.edu.funix.j3lp0011.dto.SocialDto;
+              import vn.edu.funix.j3lp0011.entity.Post;
+              import vn.edu.funix.j3lp0011.exception.PostNotFoundException;
+              import vn.edu.funix.j3lp0011.mapper.AboutMeMapper;
+              import vn.edu.funix.j3lp0011.mapper.PostMapper;
+              import vn.edu.funix.j3lp0011.mapper.SocialMapper;
+              import vn.edu.funix.j3lp0011.repository.AboutMeRepository;
+              import vn.edu.funix.j3lp0011.repository.PostRepository;
+              import vn.edu.funix.j3lp0011.repository.SocialRepository;
+              
+              import java.time.format.TextStyle;
+              import java.util.*;
+              import java.util.stream.Collectors;
+              
+              @Service
+              @RequiredArgsConstructor
+              public class BlogService {
+              
+                  private final PostRepository postRepository;
+                  private final AboutMeRepository aboutMeRepository;
+                  private final SocialRepository socialRepository;
+              
+                  private final PostMapper postMapper;
+                  private final AboutMeMapper aboutMeMapper;
+                  private final SocialMapper socialMapper;
+              
+                  private final BlogProperties blogProperties;
+              
+                  public List<PostDto> getHomepagePosts() {
+                      var pageable = PageRequest.of(0, blogProperties.getPosts().getHomepageCount());
+                      var posts = postRepository.findByOrderByCreatedAtDesc(pageable);
+                      return postMapper.toDtoList(posts);
+                  }
+              
+                  public PostDto getPostById(int id) {
+                      return postRepository.findById(id)
+                              .map(postMapper::toDto)
+                              .orElseThrow(() -> new PostNotFoundException("Post not found with id: " + id));
+                  }
+              
+                  public Map<String, List<PostDto>> getGroupedPosts() {
+                      List<Post> posts = postRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
+              
+                      return posts.stream()
+                              .collect(Collectors.groupingBy(
+                                      post -> post.getCreatedAt().getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH).toUpperCase()
+                                              + " " + post.getCreatedAt().getYear(),
+                                      LinkedHashMap::new, // Giữ thứ tự
+                                      Collectors.mapping(postMapper::toDto, Collectors.toList())
+                              ));
+                  }
+              
+                  public AboutMeDto getAboutMe() {
+                      return aboutMeRepository.findById(1)
+                              .map(aboutMeMapper::toDto)
+                              .orElse(new AboutMeDto()); // Trả về DTO rỗng nếu không tìm thấy
+                  }
+              
+                  public List<SocialDto> getSocials() {
+                      return socialMapper.toDtoList(socialRepository.findAll());
+                  }
+              }
+              [File Ends] main/java/vn/edu/funix/j3lp0011/service/BlogService.java
+
+              [File Begins] main/java/vn/edu/funix/j3lp0011/service/ViewCounterService.java
+              package vn.edu.funix.j3lp0011.service;
+              
+              import lombok.RequiredArgsConstructor;
+              import org.springframework.stereotype.Service;
+              import org.springframework.transaction.annotation.Transactional;
+              import vn.edu.funix.j3lp0011.entity.TotalViews;
+              import vn.edu.funix.j3lp0011.repository.TotalViewsRepository;
+              
+              @Service
+              @RequiredArgsConstructor
+              public class ViewCounterService {
+              
+                  private final TotalViewsRepository totalViewsRepository;
+              
+                  @Transactional
+                  public synchronized int incrementAndGetViews() {
+                      totalViewsRepository.incrementViewCount();
+                      return totalViewsRepository.findById(1)
+                              .map(TotalViews::getViewCount)
+                              .orElse(0);
+                  }
+              }
+              [File Ends] main/java/vn/edu/funix/j3lp0011/service/ViewCounterService.java
+
+    [File Begins] main/resources/application.properties
+    # Database configuration
+    spring.datasource.url=jdbc:h2:mem:testdb
+    spring.datasource.driverClassName=org.h2.Driver
+    spring.datasource.username=sa
+    spring.datasource.password=
+    
+    # JPA/Hibernate configuration
+    spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+    spring.jpa.hibernate.ddl-auto=create-drop
+    spring.jpa.show-sql=true
+    spring.jpa.properties.hibernate.format_sql=true
+    
+    # H2 Console (for development only)
+    spring.h2.console.enabled=true
+    
+    # Data initialization
+    spring.jpa.defer-datasource-initialization=true
+    spring.sql.init.mode=always
+    spring.sql.init.schema-locations=
+    
+    # Blog configuration
+    blog.posts.homepage-count=5
+    
+    # Session configuration
+    server.servlet.session.timeout=30m
+    
+    # Logging configuration
+    logging.level.vn.edu.funix.j3lp0011.exception.GlobalExceptionHandler=WARN
+    logging.level.org.springframework.web.servlet.resource=WARN
+    logging.level.org.springframework.jdbc.datasource.init=DEBUG
+    logging.level.org.springframework.boot.sql.init=DEBUG
+    [File Ends] main/resources/application.properties
+
+    [File Begins] main/resources/data.sql
+    -- Initial data (INSERT INTO statements) for H2 Database
+    
+    -- Insert data for the about_me page
+    INSERT INTO about_me (id, content, author) VALUES
+    (
+      1,
+      'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.<br/><br/>Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.',
+      'Vivianne Russell'
+    );
+    
+    -- Insert data for blog posts
+    INSERT INTO post (title, type, content, image_path, created_at) VALUES
+    (
+      'Essential skills for a happy life!',
+      'blog',
+      'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. At eam doctus oportere, eam feugait delectus ne. Quo cu vulputate persecuti. Eum ut natum possim comprehensam, habeo dicta scaevola eu nec. Ea adhuc reformidans eam. Pri dolore epicuri eu, ne cum tantas fierent instructior. Pro ridens intellegam ut, sea at graecis scriptorem eloquentiam.<br/><br/>Per an labitur lucilius ullamcorper, esse erat ponderum ad vim. Possim laoreet suscipit ex pri, vix numquam eruditi feugait in. Nec maluisset complectitur te, at sea decore semper. Falli numquam perpetua sea et, tibique repudiandae an pro. Ut his solum persius postulant. Soluta nemore debitis ne eos, cum an scripta pericula partiendo.',
+      'i2.jpg',
+      '2015-11-16'
+    ),
+    (
+      'You''ve gotta dance',
+      'quote',
+      'You''ve gotta dance like there''s nobody watching,<br/>Love like you''ll never be hurt,<br/>Sing like there''s nobody listening,<br/>And live like it''s heaven on earth. - William W. Purkey',
+      '',
+      '2015-11-16'
+    ),
+    (
+      'Photo',
+      'photo',
+      '',
+      'i1.jpg',
+      '2024-05-10'
+    ),
+    (
+      'Another Blog Post',
+      'blog',
+      'This is another post to test pagination and ordering. It should appear after the first post but before the photo post if sorted by date.',
+      'i2.jpg',
+      '2022-08-20'
+    );
+    
+    
+    -- Insert data for social media links
+    INSERT INTO social (name, icon) VALUES
+      ('Facebook', 'fb.jpg'),
+      ('Twitter', 'tw.jpg'),
+      ('Google+', 'gg.jpg');
+    
+    -- Initialize the page view counter
+    INSERT INTO total_views (id, view_count) VALUES (1, 1857); -- Start with a realistic number
+    [File Ends] main/resources/data.sql
+
+    [File Begins] main/resources/schema.sql
+    -- Database schema definition (CREATE TABLE statements) for H2 Database
+    
+    -- Drop tables if they exist to ensure a clean slate on each startup
+    DROP TABLE IF EXISTS about_me, post, social, total_views;
+    
+    -- Create the about_me table
+    CREATE TABLE about_me (
+        id INT PRIMARY KEY,
+        content VARCHAR(4000),
+        author VARCHAR(100)
+    );
+    
+    -- Create the post table
+    CREATE TABLE post (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        title VARCHAR(255),
+        type VARCHAR(50),
+        content VARCHAR(2000),
+        image_path VARCHAR(500),
+        created_at DATE
+    );
+    
+    -- Create the social table
+    CREATE TABLE social (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(50),
+        icon VARCHAR(500)
+    );
+    
+    -- Create the total_views table
+    CREATE TABLE total_views (
+        id INT PRIMARY KEY,
+        view_count INT
+    );
+    [File Ends] main/resources/schema.sql
+
+        [File Begins] main/resources/static/css/style.css
+        /* Global Styles */
+        html {
+            background-color: #c2baaf;
+            background-image: url('../images/background.jpg');
+            font-family: 'Calibri', sans-serif;
+        }
+        
+        body {
+            width: 1000px;
+            margin: 0 auto;
+            margin-bottom: 4rem;
+            background-color: white;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 0 17px #6d5160;
+        }
+        
+        /* Header Styles */
+        header {
+            padding: 1rem;
+            padding-bottom: 0;
+            background-color: #efeae2;
+            color: #6d5160;
+        }
+        
+        header li {
+            display: inline-block;
+        }
+        
+        header a {
+            text-decoration: none;
+            color: black;
+            margin-right: 1rem;
+        }
+        
+        .nav {
+            margin-top: 2rem;
+        }
+        
+        .nav li {
+            margin: 0.5rem;
+            margin-left: 0;
+        }
+        
+        .active {
+            font-weight: bold;
+        }
+        
+        h1 {
+            font-size: 47px;
+            margin: 0;
+            margin-left: 0.5rem;
+        }
+        
+        h2 {
+            font-size: larger;
+            margin-top: 0.5rem;
+            margin-left: 0.5rem;
+            font-weight: lighter;
+        }
+        
+        /* Page Content Styles */
+        .page-content {
+            padding: 1rem;
+            display: grid;
+            grid-template-columns: 75% 25%;
+        }
+        
+        .container {
+            margin-right: 1rem;
+        }
+        
+        .blog-title {
+            font-size: x-large;
+            font-weight: bold;
+        }
+        
+        /* Side Banner Styles */
+        .side-banner {
+            padding: 0.5rem;
+        }
+        
+        .banner-title {
+            font-size: larger;
+        }
+        
+        .side-container {
+            padding: 0.5rem;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #6d5160;
+        }
+        
+        .side-container a {
+            color: black;
+            text-decoration: none;
+        }
+        
+        .side-container li {
+            margin-bottom: 8px;
+        }
+        
+        .side-container img {
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+        
+        /* Post Styles */
+        .row {
+            border-bottom: 3px dotted rgba(0, 0, 0, 0.2);
+            display: flex;
+            margin: 1rem 0;
+            padding-bottom: 1rem;
+        }
+        
+        .row:last-child {
+            border-bottom: none;
+        }
+        
+        
+        .row>img {
+            /* The icon for the post type */
+            padding-top: 15px;
+            height: 60%;
+            align-self: flex-start;
+        }
+        
+        .post {
+            margin-left: 1rem;
+            margin-bottom: 1rem;
+            width: 100%;
+        }
+        
+        .post-title {
+            margin: 0.5rem 0;
+        }
+        
+        .post-title a {
+            font-size: larger;
+            font-weight: bold;
+            display: inline;
+            color: black;
+            text-decoration: none;
+        }
+        
+        .post-date {
+            float: right;
+            font-size: 14px;
+            font-style: italic;
+        }
+        
+        .post-content a {
+            float: left;
+            width: 50%;
+            margin: 0 1rem 0.5rem 0;
+        }
+        
+        .post-content img {
+            padding-top: 0;
+            width: 100%;
+            border-radius: 15px;
+        }
+        
+        .quote {
+            border-right: 5px solid black;
+            text-align: right;
+            padding-right: 1rem;
+        }
+        
+        .quote-content {
+            font-style: italic;
+            font-size: 16px;
+        }
+        
+        .quote-author {
+            font-size: 13px;
+        }
+        
+        /* Overview Styles */
+        a.overview {
+            display: block;
+            text-align: center;
+            color: black;
+            margin-top: 1rem;
+        }
+        
+        .overview-group {
+            font-weight: bold;
+            font-size: 24px;
+            border-bottom: 2px solid black;
+            padding-bottom: 5px;
+            margin-top: 2rem;
+        }
+        
+        .overview-item {
+            width: 100%;
+            border-top: 1px solid rgba(0, 0, 0, 0.2);
+            color: black;
+            padding: 0.75rem 0.5rem;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .overview-group+.overview-item {
+            border-top: none;
+        }
+        
+        .overview-item a {
+            color: black;
+            text-decoration: none;
+            font-weight: normal;
+        }
+        
+        .overview-item-date {
+            font-style: italic;
+        }
+        
+        .overview-container {
+            margin-top: 2rem;
+        }
+        
+        /* Footer Styles */
+        footer {
+            padding: 1rem;
+        }
+        
+        .footer-page-counter {
+            margin: 30px 0;
+            text-align: right;
+            display: block;
+        }
+        
+        .footer-page-counter-item {
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 4px 6px;
+            margin: 0 1px;
+            box-shadow: 0 1px 2px #595959;
+            background-color: #f0f0f0;
+            color: #333;
+            border: 1px solid #ccc;
+        }
+        
+        /* Miscellaneous Styles */
+        .error-message {
+            color: #D8000C;
+            background-color: #FFD2D2;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #D8000C;
+        }
+        
+        .navigate-message {
+            margin-top: 20px;
+        }
+        
+        .signature {
+            font-size: 48px;
+            font-family: 'Brush Script MT', cursive;
+            margin-block-start: 0;
+            margin-block-end: 1rem;
+        }
+        
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .no-data-message {
+            text-align: center;
+            font-style: italic;
+            color: gray;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #fafafa;
+            border: 1px dashed #ddd;
+        }
+        [File Ends] main/resources/static/css/style.css
+
+      [File Begins] main/resources/templates/about-me.html
+      <!DOCTYPE html>
+      <html lang="en" xmlns:th="http://www.thymeleaf.org">
+      
+      <head>
+          <meta charset="UTF-8">
+          <title>About Me</title>
+          <link rel="stylesheet" th:href="@{/css/style.css}">
+      </head>
+      
+      <body>
+      
+          <div th:replace="~{fragments/header :: header(activePage='aboutMe')}"></div>
+      
+          <div class="page-content">
+              <div class="container">
+                  <div class="blog-title">About Me</div>
+      
+                  <div th:if="${aboutMe == null or aboutMe.content == null}" class="no-data-message">
+                      No information available.
+                  </div>
+      
+                  <div th:if="${aboutMe != null and aboutMe.content != null}">
+                      <div class="post-content">
+                          <!-- Use utext for unescaped text to render <br/> tags -->
+                          <p th:utext="${aboutMe.content}">About me content...</p>
+                      </div>
+      
+                      <div>
+                          <p>Kind regards</p>
+                          <p class="signature" th:text="${aboutMe.author}">Vivianne Russell</p>
+                      </div>
+                  </div>
+      
+              </div>
+      
+              <!-- Side Banner -->
+              <div th:replace="~{fragments/side-banner :: side-banner(socials=${socials})}"></div>
+      
+          </div>
+      
+          <div th:replace="~{fragments/footer :: footer}"></div>
+      
+      </body>
+      
+      </html>
+      [File Ends] main/resources/templates/about-me.html
+
+        [File Begins] main/resources/templates/error/404.html
+        <!DOCTYPE html>
+        <html lang="en" xmlns:th="http://www.thymeleaf.org">
+        
+        <head>
+            <meta charset="UTF-8">
+            <title>404 - Page Not Found</title>
+            <link rel="stylesheet" th:href="@{/css/style.css}">
+        </head>
+        
+        <body>
+            <div th:replace="~{fragments/header :: header(activePage='error')}"></div>
+        
+            <div class="page-content">
+                <div class="container">
+                    <div class="error-message">
+                        <h2>404 - Page Not Found</h2>
+                        <p
+                            th:text="${errorMessage != null ? errorMessage : 'The page you are looking for could not be found.'}">
+                            Error details here</p>
+                    </div>
+                    <div class="navigate-message">
+                        Click <a th:href="@{/home}">here</a> to return to the homepage.
+                    </div>
+                </div>
+            </div>
+        
+        </body>
+        
+        </html>
+        [File Ends] main/resources/templates/error/404.html
+
+        [File Begins] main/resources/templates/error/500.html
+        <!DOCTYPE html>
+        <html xmlns:th="http://www.thymeleaf.org">
+        
+        <head>
+            <title>500 Internal Server Error</title>
+        </head>
+        
+        <body>
+            <!-- 500 error page template -->
+        </body>
+        
+        </html>
+        [File Ends] main/resources/templates/error/500.html
+
+      [File Begins] main/resources/templates/error.html
+      <!DOCTYPE html>
+      <html lang="en" xmlns:th="http://www.thymeleaf.org">
+      
+      <head>
+          <meta charset="UTF-8">
+          <title>Error</title>
+          <link rel="stylesheet" th:href="@{/css/style.css}">
+      </head>
+      
+      <body>
+      
+          <div th:replace="~{fragments/header :: header(activePage='error')}"></div>
+      
+          <div class="page-content">
+              <div class="container">
+                  <div class="error-message">
+                      <h2>Oops! Something went wrong.</h2>
+                      <p th:text="${errorMessage != null ? errorMessage : 'An unexpected error occurred.'}">Error details here
+                      </p>
+                  </div>
+                  <div class="navigate-message">
+                      Click <a th:href="@{/home}">here</a> to return to the homepage.
+                  </div>
+              </div>
+          </div>
+      
+      </body>
+      
+      </html>
+      [File Ends] main/resources/templates/error.html
+
+        [File Begins] main/resources/templates/fragments/footer.html
+        <!DOCTYPE html>
+        <html lang="en" xmlns:th="http://www.thymeleaf.org">
+        
+        <body>
+            <footer th:fragment="footer">
+                <hr>
+                <div>
+                    <!-- The viewCounter is an array of characters set in the SessionListener -->
+                    <div class="footer-page-counter" style="display: block;" th:if="${session.viewCounter != null}">
+                        <span th:each="digit : ${session.viewCounter}" class="footer-page-counter-item" th:text="${digit}">
+                        </span>
+                    </div>
+                </div>
+            </footer>
+        </body>
+        
+        </html>
+        [File Ends] main/resources/templates/fragments/footer.html
+
+        [File Begins] main/resources/templates/fragments/header.html
+        <!DOCTYPE html>
+        <html lang="en" xmlns:th="http://www.thymeleaf.org">
+        
+        <head>
+            <!-- Common head elements can be placed here if needed -->
+        </head>
+        
+        <body>
+            <header th:fragment="header(activePage)">
+                <h1>Blogging About My Life</h1>
+                <h2>Welcome to my blog</h2>
+                <nav>
+                    <ul class="nav">
+                        <li><a th:href="@{/home}" th:class="${activePage == 'blog'} ? 'active' : ''">My Blog</a></li>
+                        <li><a th:href="@{/about-me}" th:class="${activePage == 'aboutMe'} ? 'active' : ''">About Me</a></li>
+                    </ul>
+                </nav>
+            </header>
+        </body>
+        
+        </html>
+        [File Ends] main/resources/templates/fragments/header.html
+
+        [File Begins] main/resources/templates/fragments/post-entry.html
+        <!DOCTYPE html>
+        <html lang="en" xmlns:th="http://www.thymeleaf.org">
+        
+        <body>
+            <div th:fragment="post-entry(post)" class="row" th:if="${post != null}">
+                <img th:src="@{'/images/' + ${post.type} + '.png'}" alt="type icon">
+                <div class="post">
+                    <div class="post-title">
+                        <a th:href="@{/post/{id}(id=${post.id})}" th:text="${post.title}">Post Title</a>
+                        <div class="post-date" th:text="${#temporals.format(post.createdAt, 'dd-MM-yyyy')}">16-11-2015</div>
+                    </div>
+                    <div class="post-content">
+                        <th:block th:switch="${post.type}">
+                            <!-- Case for 'photo' type -->
+                            <a th:case="'photo'" th:href="@{/post/{id}(id=${post.id})}" style="width: 100%">
+                                <img th:src="@{'/images/' + ${post.imagePath}}" alt="post image">
+                            </a>
+        
+                            <!-- Case for 'quote' type -->
+                            <div th:case="'quote'" class="quote">
+                                <!-- The quote content is pre-processed in the PostMapper -->
+                                <q class="quote-content" th:utext="${post.quoteContent}">The quote itself...</q>
+                                <p class="quote-author" th:text="${post.quoteAuthor} + ' —'">William W. Purkey —</p>
+                            </div>
+        
+                            <!-- Default case (for 'blog' type) -->
+                            <div th:case="*">
+                                <a th:href="@{/post/{id}(id=${post.id})}">
+                                    <img th:src="@{'/images/' + ${post.imagePath}}" alt="post image">
+                                </a>
+                                <p th:utext="${post.content}">Blog post content...</p>
+                            </div>
+                        </th:block>
+                    </div>
+                </div>
+            </div>
+        </body>
+        
+        </html>
+        [File Ends] main/resources/templates/fragments/post-entry.html
+
+        [File Begins] main/resources/templates/fragments/side-banner.html
+        <!DOCTYPE html>
+        <html lang="en" xmlns:th="http://www.thymeleaf.org">
+        
+        <body>
+            <div class="side-banner" th:fragment="side-banner(socials)">
+                <div class="side-container">
+                    <div class="banner-title">Share this page</div>
+                    <ul th:if="${socials != null and not #lists.isEmpty(socials)}">
+                        <li th:each="social : ${socials}">
+                            <a href="#">
+                                <img th:src="@{'/images/' + ${social.icon}}" th:alt="${social.name}">
+                                <span th:text="'Share on ' + ${social.name}">Share on Facebook</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </body>
+        
+        </html>
+        [File Ends] main/resources/templates/fragments/side-banner.html
+
+      [File Begins] main/resources/templates/home.html
+      <!DOCTYPE html>
+      <html lang="en" xmlns:th="http://www.thymeleaf.org">
+      
+      <head>
+          <meta charset="UTF-8">
+          <title>Home</title>
+          <link rel="stylesheet" th:href="@{/css/style.css}">
+      </head>
+      
+      <body>
+      
+          <div th:replace="~{fragments/header :: header(activePage='blog')}"></div>
+      
+          <div class="page-content">
+              <div class="container">
+                  <div class="blog-title">My Blog</div>
+      
+      
+                  <div th:if="${posts == null or #lists.isEmpty(posts)}" class="no-data-message">
+                      No posts found.
+                  </div>
+      
+                  <div th:if="${posts != null and not #lists.isEmpty(posts)}">
+                      <!-- Loop through posts and include the post-entry fragment -->
+                      <th:block th:each="post : ${posts}">
+                          <div th:replace="~{fragments/post-entry :: post-entry(post=${post})}"></div>
+                      </th:block>
+                  </div>
+              </div>
+      
+              <!-- Side Banner -->
+              <div th:replace="~{fragments/side-banner :: side-banner(socials=${socials})}"></div>
+      
+              <div>
+                  <a class="overview" th:href="@{/overview}">Overview</a>
+              </div>
+          </div>
+      
+          <div th:replace="~{fragments/footer :: footer}"></div>
+      
+      </body>
+      
+      </html>
+      [File Ends] main/resources/templates/home.html
+
+      [File Begins] main/resources/templates/overview.html
+      <!DOCTYPE html>
+      <html lang="en" xmlns:th="http://www.thymeleaf.org">
+      
+      <head>
+          <meta charset="UTF-8">
+          <title>Overview</title>
+          <link rel="stylesheet" th:href="@{/css/style.css}">
+      </head>
+      
+      <body>
+      
+          <div th:replace="~{fragments/header :: header(activePage='blog')}"></div>
+      
+          <div class="page-content">
+              <div class="container">
+                  <div class="blog-title">Overview - My Blog</div>
+      
+                  <div th:if="${groupedPosts == null or #maps.isEmpty(groupedPosts)}" class="no-data-message">
+                      No posts found.
+                  </div>
+      
+                  <div th:if="${groupedPosts != null and not #maps.isEmpty(groupedPosts)}" class="overview-container">
+                      <!-- Outer loop for each month-year group -->
+                      <div th:each="group : ${groupedPosts}">
+                          <div class="overview-group">
+                              <span th:text="${group.key}">NOVEMBER 2015</span>
+                              <div class="overview-item-date">Date</div>
+                          </div>
+                          <!-- Inner loop for each post within the group -->
+                          <div th:each="post : ${group.value}" class="overview-item">
+                              <a th:href="@{/post/{id}(id=${post.id})}" th:text="${post.title}">Post Title</a>
+                              <div class="overview-item-date" th:text="${#temporals.format(post.createdAt, 'dd-MM-yyyy')}">
+                                  16-11-2015
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+      
+              </div>
+      
+              <!-- Side Banner -->
+              <div th:replace="~{fragments/side-banner :: side-banner(socials=${socials})}"></div>
+      
+          </div>
+      
+          <div th:replace="~{fragments/footer :: footer}"></div>
+      
+      </body>
+      
+      </html>
+      [File Ends] main/resources/templates/overview.html
+
+      [File Begins] main/resources/templates/post-detail.html
+      <!DOCTYPE html>
+      <html lang="en" xmlns:th="http://www.thymeleaf.org">
+      
+      <head>
+          <meta charset="UTF-8">
+          <title th:text="${post != null ? post.title : 'Post Not Found'}">Post Title</title>
+          <link rel="stylesheet" th:href="@{/css/style.css}">
+      </head>
+      
+      <body>
+      
+          <div th:replace="~{fragments/header :: header(activePage='blog')}"></div>
+      
+          <div class="page-content">
+              <div class="container">
+                  <div th:if="${post == null}" class="no-data-message">
+                      The post you are looking for does not exist.
+                  </div>
+      
+                  <!-- Include the reusable fragment to display the post -->
+                  <div th:if="${post != null}" th:replace="~{fragments/post-entry :: post-entry(post=${post})}">
+                      <!-- Full post entry will be inserted here -->
+                  </div>
+              </div>
+      
+              <!-- Side Banner -->
+              <div th:replace="~{fragments/side-banner :: side-banner(socials=${socials})}"></div>
+      
+              <div>
+                  <a class="overview" th:href="@{/overview}">Overview</a>
+              </div>
+          </div>
+      
+          <div th:replace="~{fragments/footer :: footer}"></div>
+      
+      </body>
+      
+      </html>
+      [File Ends] main/resources/templates/post-detail.html
+
+            [File Begins] test/java/vn/edu/funix/j3lp0011/J3lp0011ApplicationTests.java
+            package vn.edu.funix.j3lp0011;
+            
+            import org.junit.jupiter.api.Test;
+            import org.springframework.boot.test.context.SpringBootTest;
+            
+            @SpringBootTest
+            class J3lp0011ApplicationTests {
+            
+            	@Test
+            	void contextLoads() {
+            	}
+            
+            }
+
+            [File Ends] test/java/vn/edu/funix/j3lp0011/J3lp0011ApplicationTests.java
+
+              [File Begins] test/java/vn/edu/funix/j3lp0011/controller/BlogControllerTest.java
+              package vn.edu.funix.j3lp0011.controller;
+              
+              import org.junit.jupiter.api.Test;
+              import org.springframework.beans.factory.annotation.Autowired;
+              import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+              import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+              import org.springframework.boot.test.mock.mockito.MockBean;
+              import org.springframework.test.web.servlet.MockMvc;
+              import vn.edu.funix.j3lp0011.dto.PostDto;
+              import vn.edu.funix.j3lp0011.exception.PostNotFoundException;
+              import vn.edu.funix.j3lp0011.service.BlogService;
+              
+              import java.time.LocalDate;
+              import java.util.List;
+              import java.util.Map;
+              
+              import static org.hamcrest.Matchers.*;
+              import static org.mockito.Mockito.when;
+              import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+              import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+              
+              @WebMvcTest(controllers = {BlogController.class, AboutMeController.class})
+              @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+              class BlogControllerTest {
+              
+                  @Autowired
+                  private MockMvc mockMvc;
+              
+                  @MockBean
+                  private BlogService blogService;
+              
+                  @Test
+                  void showHomePage_shouldReturnHomePageWithPosts() throws Exception {
+                      // Arrange
+                      PostDto post1 = new PostDto();
+                      post1.setId(1);
+                      post1.setTitle("First Post");
+                      post1.setType("blog");
+                      post1.setContent("First post content");
+                      post1.setImagePath("i1.jpg");
+                      post1.setCreatedAt(LocalDate.now());
+                      PostDto post2 = new PostDto();
+                      post2.setId(2);
+                      post2.setTitle("Second Post");
+                      post2.setType("blog");
+                      post2.setContent("Second post content");
+                      post2.setImagePath("i2.jpg");
+                      post2.setCreatedAt(LocalDate.now());
+                      when(blogService.getHomepagePosts()).thenReturn(List.of(post1, post2));
+                      when(blogService.getSocials()).thenReturn(List.of());
+              
+                      // Act & Assert
+                      mockMvc.perform(get("/home"))
+                              .andExpect(status().isOk())
+                              .andExpect(view().name("home"))
+                              .andExpect(model().attributeExists("posts"))
+                              .andExpect(model().attribute("posts", hasSize(2)))
+                              .andExpect(model().attribute("posts", hasItem(
+                                      hasProperty("title", is("First Post"))
+                              )));
+                  }
+              
+                  @Test
+                  void showPostDetailPage_whenPostExists_shouldReturnPostDetailView() throws Exception {
+                      // Arrange
+                      PostDto post = new PostDto();
+                      post.setId(1);
+                      post.setTitle("Test Post");
+                      post.setType("blog");
+                      post.setContent("Test content");
+                      post.setImagePath("i1.jpg");
+                      post.setCreatedAt(LocalDate.now());
+                      when(blogService.getPostById(1)).thenReturn(post);
+                      when(blogService.getSocials()).thenReturn(List.of());
+              
+                      // Act & Assert
+                      mockMvc.perform(get("/post/1"))
+                              .andExpect(status().isOk())
+                              .andExpect(view().name("post-detail"))
+                              .andExpect(model().attribute("post", hasProperty("id", is(1))));
+                  }
+              
+                  @Test
+                  void showPostDetailPage_whenPostDoesNotExist_shouldReturnNotFoundStatus() throws Exception {
+                      // Arrange
+                      when(blogService.getPostById(99)).thenThrow(new PostNotFoundException("Post not found"));
+              
+                      // Act & Assert
+                      mockMvc.perform(get("/post/99"))
+                              .andExpect(status().isNotFound());
+                  }
+              
+                  @Test
+                  void showOverviewPage_shouldReturnOverviewViewWithGroupedPosts() throws Exception {
+                      // Arrange
+                      PostDto post1 = new PostDto();
+                      post1.setId(1);
+                      post1.setTitle("May Post");
+                      post1.setType("blog");
+                      post1.setContent("May post content");
+                      post1.setImagePath("i1.jpg");
+                      post1.setCreatedAt(LocalDate.now());
+                      Map<String, List<PostDto>> groupedData = Map.of("MAY 2024", List.of(post1));
+                      when(blogService.getGroupedPosts()).thenReturn(groupedData);
+                      when(blogService.getSocials()).thenReturn(List.of());
+              
+                      // Act & Assert
+                      mockMvc.perform(get("/overview"))
+                              .andExpect(status().isOk())
+                              .andExpect(view().name("overview"))
+                              .andExpect(model().attributeExists("groupedPosts"))
+                              .andExpect(model().attribute("groupedPosts", hasKey("MAY 2024")));
+                  }
+              }
+              [File Ends] test/java/vn/edu/funix/j3lp0011/controller/BlogControllerTest.java
+
+              [File Begins] test/java/vn/edu/funix/j3lp0011/service/BlogServiceTest.java
+              package vn.edu.funix.j3lp0011.service;
+              
+              import org.junit.jupiter.api.BeforeEach;
+              import org.junit.jupiter.api.Test;
+              import org.junit.jupiter.api.extension.ExtendWith;
+              import org.mockito.InjectMocks;
+              import org.mockito.Mock;
+              import org.mockito.junit.jupiter.MockitoExtension;
+              import org.springframework.data.domain.Sort;
+              import vn.edu.funix.j3lp0011.dto.AboutMeDto;
+              import vn.edu.funix.j3lp0011.dto.PostDto;
+              import vn.edu.funix.j3lp0011.entity.AboutMe;
+              import vn.edu.funix.j3lp0011.entity.Post;
+              import vn.edu.funix.j3lp0011.exception.PostNotFoundException;
+              import vn.edu.funix.j3lp0011.mapper.AboutMeMapper;
+              import vn.edu.funix.j3lp0011.mapper.PostMapper;
+              import vn.edu.funix.j3lp0011.mapper.SocialMapper;
+              import vn.edu.funix.j3lp0011.repository.AboutMeRepository;
+              import vn.edu.funix.j3lp0011.repository.PostRepository;
+              import vn.edu.funix.j3lp0011.repository.SocialRepository;
+              
+              import java.time.LocalDate;
+              import java.util.List;
+              import java.util.Map;
+              import java.util.Optional;
+              
+              import static org.junit.jupiter.api.Assertions.*;
+              import static org.mockito.ArgumentMatchers.any;
+              import static org.mockito.Mockito.*;
+              
+              @ExtendWith(MockitoExtension.class)
+              class BlogServiceTest {
+              
+                  @Mock
+                  private PostRepository postRepository;
+                  @Mock
+                  private AboutMeRepository aboutMeRepository;
+                  @Mock
+                  private SocialRepository socialRepository;
+                  @Mock
+                  private PostMapper postMapper;
+                  @Mock
+                  private AboutMeMapper aboutMeMapper;
+                  @Mock
+                  private SocialMapper socialMapper;
+              
+                  @InjectMocks
+                  private BlogService blogService;
+              
+                  private Post post1;
+                  private PostDto postDto1;
+              
+                  @BeforeEach
+                  void setUp() {
+                      // Khởi tạo dữ liệu mẫu để tái sử dụng trong các test
+                      post1 = new Post();
+                      post1.setId(1);
+                      post1.setTitle("Test Post 1");
+                      post1.setCreatedAt(LocalDate.of(2024, 5, 20));
+              
+                      postDto1 = new PostDto();
+                      postDto1.setId(1);
+                      postDto1.setTitle("Test Post 1");
+                  }
+              
+                  @Test
+                  void getPostById_whenPostExists_shouldReturnPostDto() {
+                      // Arrange
+                      when(postRepository.findById(1)).thenReturn(Optional.of(post1));
+                      when(postMapper.toDto(post1)).thenReturn(postDto1);
+              
+                      // Act
+                      PostDto foundPost = blogService.getPostById(1);
+              
+                      // Assert
+                      assertNotNull(foundPost);
+                      assertEquals(1, foundPost.getId());
+                      assertEquals("Test Post 1", foundPost.getTitle());
+              
+                      // Verify
+                      verify(postRepository, times(1)).findById(1);
+                      verify(postMapper, times(1)).toDto(post1);
+                  }
+              
+                  @Test
+                  void getPostById_whenPostDoesNotExist_shouldThrowPostNotFoundException() {
+                      // Arrange
+                      when(postRepository.findById(99)).thenReturn(Optional.empty());
+              
+                      // Act & Assert
+                      assertThrows(PostNotFoundException.class, () -> {
+                          blogService.getPostById(99);
+                      });
+              
+                      // Verify
+                      verify(postRepository, times(1)).findById(99);
+                      verify(postMapper, never()).toDto(any());
+                  }
+              
+                  @Test
+                  void getGroupedPosts_shouldReturnMapOfStringAndListOfPostDto() {
+                      // Arrange
+                      Post post2 = new Post();
+                      post2.setId(2);
+                      post2.setTitle("Test Post 2");
+                      post2.setCreatedAt(LocalDate.of(2024, 4, 15));
+              
+                      List<Post> posts = List.of(post1, post2);
+                      when(postRepository.findAll(any(Sort.class))).thenReturn(posts);
+                      when(postMapper.toDto(any(Post.class))).thenAnswer(invocation -> {
+                          Post p = invocation.getArgument(0);
+                          PostDto dto = new PostDto();
+                          dto.setId(p.getId());
+                          dto.setTitle(p.getTitle());
+                          return dto;
+                      });
+              
+                      // Act
+                      Map<String, List<PostDto>> groupedPosts = blogService.getGroupedPosts();
+              
+                      // Assert
+                      assertNotNull(groupedPosts);
+                      assertEquals(2, groupedPosts.size()); // 2 tháng khác nhau
+                      assertTrue(groupedPosts.containsKey("MAY 2024"));
+                      assertTrue(groupedPosts.containsKey("APRIL 2024"));
+                      assertEquals(1, groupedPosts.get("MAY 2024").size());
+                  }
+              
+                  @Test
+                  void getAboutMe_whenDataExists_shouldReturnAboutMeDto() {
+                      // Arrange
+                      AboutMe aboutMeEntity = new AboutMe();
+                      aboutMeEntity.setId(1);
+                      aboutMeEntity.setAuthor("Test Author");
+              
+                      AboutMeDto aboutMeDto = new AboutMeDto();
+                      aboutMeDto.setAuthor("Test Author");
+              
+                      when(aboutMeRepository.findById(1)).thenReturn(Optional.of(aboutMeEntity));
+                      when(aboutMeMapper.toDto(aboutMeEntity)).thenReturn(aboutMeDto);
+              
+                      // Act
+                      AboutMeDto result = blogService.getAboutMe();
+              
+                      // Assert
+                      assertNotNull(result);
+                      assertEquals("Test Author", result.getAuthor());
+                  }
+              }
+              [File Ends] test/java/vn/edu/funix/j3lp0011/service/BlogServiceTest.java
+
+
+<-- File Content Ends
+

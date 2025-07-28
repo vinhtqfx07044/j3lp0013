@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+    <footer th:fragment="footer">
+        <hr>
+        <div>
+            <!-- The viewCounter is an array of characters set in the SessionListener -->
+            <div class="footer-page-counter" th:if="${session.viewCounter != null}">
+                <span th:each="digit : ${session.viewCounter}" class="footer-page-counter-item" th:text="${digit}">
+                </span>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

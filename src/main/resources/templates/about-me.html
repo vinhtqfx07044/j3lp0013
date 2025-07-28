@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>About Me</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+    <div th:replace="~{fragments/header :: header(activePage='aboutMe')}"></div>
+
+    <div class="page-content">
+        <div class="container">
+            <div class="blog-title">About Me</div>
+
+            <div th:if="${aboutMe == null or aboutMe.content == null}" class="no-data-message">
+                No information available.
+            </div>
+
+            <div th:if="${aboutMe != null and aboutMe.content != null}">
+                <div class="post-content about-separator">
+                    <!-- Use utext for unescaped text to render <br/> tags -->
+                    <p th:utext="${aboutMe.content}">About me content...</p>
+                </div>
+
+                <div style="margin-top: 3rem;">
+                    <p>Kind regards</p>
+                    <p class="signature" th:text="${aboutMe.author}">Vivianne Russell</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Side Banner -->
+        <div th:replace="~{fragments/side-banner :: side-banner(socials=${socials})}"></div>
+
+    </div>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+
+</html>

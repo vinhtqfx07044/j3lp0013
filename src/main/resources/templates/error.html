@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+    <div th:replace="~{fragments/header :: header(activePage='error')}"></div>
+
+    <div class="page-content">
+        <div class="container">
+            <div class="error-message">
+                <h2>Oops! Something went wrong.</h2>
+                <p th:text="${errorMessage != null ? errorMessage : 'An unexpected error occurred.'}">Error details here
+                </p>
+            </div>
+            <div class="navigate-message">
+                Click <a th:href="@{/home}">here</a> to return to the homepage.
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+    <div th:replace="~{fragments/header :: header(activePage='blog')}"></div>
+
+    <div class="page-content">
+        <div class="container">
+            <div class="blog-title">My Blog</div>
+
+
+            <div th:if="${posts == null or #lists.isEmpty(posts)}" class="no-data-message">
+                No posts found.
+            </div>
+
+            <div th:if="${posts != null and not #lists.isEmpty(posts)}">
+                <!-- Loop through posts and include the post-entry fragment -->
+                <th:block th:each="post : ${posts}">
+                    <div th:replace="~{fragments/post-entry :: post-entry(post=${post})}"></div>
+                </th:block>
+            </div>
+        </div>
+
+        <!-- Side Banner -->
+        <div th:replace="~{fragments/side-banner :: side-banner(socials=${socials})}"></div>
+
+        <div>
+            <a class="overview" th:href="@{/overview}">Overview</a>
+        </div>
+    </div>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+
+</html>

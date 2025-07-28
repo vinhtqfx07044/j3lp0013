@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${post != null ? post.title : 'Post Not Found'}">Post Title</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+    <div th:replace="~{fragments/header :: header(activePage='blog')}"></div>
+
+    <div class="page-content">
+        <div class="container">
+            <div th:if="${post == null}" class="no-data-message">
+                The post you are looking for does not exist.
+            </div>
+
+            <!-- Include the reusable fragment to display the post -->
+            <div th:if="${post != null}" th:replace="~{fragments/post-entry :: post-detail(post=${post})}">
+                <!-- Full post entry will be inserted here -->
+            </div>
+        </div>
+
+        <!-- Side Banner -->
+        <div th:replace="~{fragments/side-banner :: side-banner(socials=${socials})}"></div>
+
+        <div>
+            <a class="overview" th:href="@{/overview}">Overview</a>
+        </div>
+    </div>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+
+</html>

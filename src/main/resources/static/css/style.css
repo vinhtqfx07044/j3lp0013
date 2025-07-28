@@ -1,0 +1,296 @@
+/* Global Styles */
+html {
+    background-color: #c2baaf;
+    background-image: url('../images/background.jpg');
+    font-family: 'Calibri', sans-serif;
+}
+
+body {
+    width: 1000px;
+    margin: 0 auto;
+    margin-bottom: 4rem;
+    background-color: white;
+    border-radius: 0 0 15px 15px;
+    box-shadow: 0 0 17px #6d5160;
+}
+
+/* Header Styles */
+header {
+    padding: 1rem;
+    padding-bottom: 0;
+    background-color: #efeae2;
+    color: #6d5160;
+}
+
+header li {
+    display: inline-block;
+}
+
+header a {
+    text-decoration: none;
+    color: black;
+    margin-right: 1rem;
+}
+
+.nav {
+    margin-top: 2rem;
+}
+
+.nav li {
+    margin: 0.5rem;
+    margin-left: 0;
+}
+
+.active {
+    font-weight: bold;
+}
+
+h1 {
+    font-size: 47px;
+    margin: 0;
+    margin-left: 0.5rem;
+}
+
+h2 {
+    font-size: larger;
+    margin-top: 0.5rem;
+    margin-left: 0.5rem;
+    font-weight: lighter;
+}
+
+/* Page Content Styles */
+.page-content {
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: 75% 25%;
+}
+
+.container {
+    margin-right: 1rem;
+}
+
+.blog-title {
+    font-size: x-large;
+    font-weight: bold;
+}
+
+/* Side Banner Styles */
+.side-banner {
+    padding: 0.5rem;
+}
+
+.banner-title {
+    font-size: larger;
+}
+
+.side-container {
+    padding: 0.5rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #6d5160;
+}
+
+.side-container a {
+    color: black;
+}
+
+.side-container li {
+    margin-bottom: 4px;
+}
+
+.side-container img {
+    vertical-align: middle;
+    margin-right: 4px;
+}
+
+/* Post Styles */
+.row {
+    display: flex;
+    margin: 1rem 0;
+    padding-bottom: 1rem;
+}
+
+.row.home-post {
+    border-bottom: 3px dotted rgba(0, 0, 0, 0.2);
+}
+
+.row.detail-post .post-content {
+    border-bottom: 3px dotted rgba(0, 0, 0, 0.2);
+    padding-bottom: 1rem;
+}
+
+/* For photo posts only - full width image */
+.row.detail-post .post-content > a[style*="width: 100%"] {
+    display: block;
+    float: none;
+    width: 100%;
+    margin: 0;
+}
+
+.row>img {
+    /* The icon for the post type */
+    padding-top: 10px;
+    align-self: flex-start;
+}
+
+.post {
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+.post-title {
+    margin: 0.5rem 0;
+}
+
+.post-title a {
+    font-size: larger;
+    font-weight: bold;
+    display: inline;
+    color: black;
+    text-decoration: underline;
+}
+
+.post-date {
+    float: right;
+    font-size: 14px;
+    font-style: italic;
+}
+
+.post-content a {
+    float: left;
+    width: 50%;
+    margin: 0 1rem 0.5rem 0;
+}
+
+.post-content img {
+    padding-top: 0;
+    width: 100%;
+    border-radius: 15px;
+}
+
+.quote {
+    border-right: 5px solid black;
+    text-align: right;
+    padding-right: 1rem;
+}
+
+.quote-content {
+    font-style: italic;
+    font-size: 16px;
+}
+
+.quote-author {
+    font-size: 13px;
+}
+
+/* Overview Styles */
+a.overview {
+    display: block;
+    text-align: center;
+    color: black;
+    margin-top: 1rem;
+}
+
+.overview-group {
+    width: 100%;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    color: black;
+    padding: 0.75rem 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    font-weight: normal;
+    margin-top: 2rem;
+}
+
+.overview-item {
+    width: 100%;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    color: black;
+    padding: 0.75rem 0.5rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.overview-group+.overview-item {
+    border-top: none;
+}
+
+.overview-item a {
+    color: black;
+    text-decoration: underline;
+    font-weight: normal;
+}
+
+.overview-item-date {
+    font-style: normal;
+}
+
+.overview-container {
+    margin-top: 2rem;
+}
+
+/* Footer Styles */
+footer {
+    padding: 1rem;
+}
+
+.footer-page-counter {
+    margin: 30px 0;
+    text-align: right;
+    display: block;
+}
+
+.footer-page-counter-item {
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 4px 6px;
+    margin: 0 1px;
+    box-shadow: 0 1px 2px #595959;
+    background-color: #f0f0f0;
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+/* Miscellaneous Styles */
+.error-message {
+    color: #D8000C;
+    background-color: #FFD2D2;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #D8000C;
+}
+
+.navigate-message {
+    margin-top: 20px;
+}
+
+.about-separator {
+    border-bottom: 3px dotted rgba(0, 0, 0, 0.2);
+    margin: 1rem 0;
+    padding-bottom: 1rem;
+}
+
+.signature {
+    font-size: 48px;
+    font-family: 'Brush Script MT', cursive;
+    margin-block-start: 0;
+    margin-block-end: 1rem;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+.no-data-message {
+    text-align: center;
+    font-style: italic;
+    color: gray;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #fafafa;
+    border: 1px dashed #ddd;
+}
