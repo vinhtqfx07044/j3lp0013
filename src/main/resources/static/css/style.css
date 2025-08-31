@@ -253,7 +253,7 @@ h3.post-title {
 .side-banner-container {
     padding: var(--space-4);
     border-radius: var(--radius-md);
-    box-shadow: 0 0 10px var(--dark);
+    box-shadow: 0 0 5px var(--dark);
 }
 
 .side-banner-title {

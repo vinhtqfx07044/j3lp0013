@@ -30,8 +30,7 @@ public class BlogService {
 
     public List<Post> getHomepagePosts() {
         var pageable = PageRequest.of(0, homepageCount);
-        var posts = postRepository.findByOrderByCreatedAtDesc(pageable);
-        return posts;
+        return postRepository.findByOrderByCreatedAtDesc(pageable);
     }
 
     public Post getPostById(int id) {
