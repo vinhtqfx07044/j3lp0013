@@ -8,22 +8,19 @@
 </head>
 
 <body>
-
     <div th:replace="~{fragments/header :: header(activePage='error')}"></div>
 
-    <div class="page-content">
-        <div class="container">
+    <div class="page-layout">
+        <main class="main-content">
             <div class="error-message">
                 <h2>Oops! Something went wrong.</h2>
-                <p th:text="${errorMessage != null ? errorMessage : 'An unexpected error occurred.'}">Error details here
-                </p>
+                <p th:text="${errorMessage != null ? errorMessage : 'An unexpected error occurred.'}"></p>
             </div>
-            <div class="navigate-message">
+            <div class="navigation-link">
                 Click <a th:href="@{/home}">here</a> to return to the homepage.
             </div>
-        </div>
+        </main>
     </div>
-
 </body>
 
 </html>

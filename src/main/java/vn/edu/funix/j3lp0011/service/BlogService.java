@@ -5,14 +5,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import vn.edu.funix.j3lp0011.dto.AboutMeDto;
-import vn.edu.funix.j3lp0011.dto.PostDto;
-import vn.edu.funix.j3lp0011.dto.SocialDto;
+import vn.edu.funix.j3lp0011.entity.AboutMe;
 import vn.edu.funix.j3lp0011.entity.Post;
-import vn.edu.funix.j3lp0011.exception.PostNotFoundException;
-import vn.edu.funix.j3lp0011.mapper.AboutMeMapper;
-import vn.edu.funix.j3lp0011.mapper.PostMapper;
-import vn.edu.funix.j3lp0011.mapper.SocialMapper;
+import vn.edu.funix.j3lp0011.entity.Social;
+import vn.edu.funix.j3lp0011.exception.ResourceNotFoundException;
 import vn.edu.funix.j3lp0011.repository.AboutMeRepository;
 import vn.edu.funix.j3lp0011.repository.PostRepository;
 import vn.edu.funix.j3lp0011.repository.SocialRepository;
@@ -29,44 +25,38 @@ public class BlogService {
     private final AboutMeRepository aboutMeRepository;
     private final SocialRepository socialRepository;
 
-    private final PostMapper postMapper;
-    private final AboutMeMapper aboutMeMapper;
-    private final SocialMapper socialMapper;
-
     @Value("${blog.posts.homepage-count:3}")
     private int homepageCount;
 
-    public List<PostDto> getHomepagePosts() {
+    public List<Post> getHomepagePosts() {
         var pageable = PageRequest.of(0, homepageCount);
         var posts = postRepository.findByOrderByCreatedAtDesc(pageable);
-        return postMapper.toDtoList(posts);
+        return posts;
     }
 
-    public PostDto getPostById(int id) {
+    public Post getPostById(int id) {
         return postRepository.findById(id)
-                .map(postMapper::toDto)
-                .orElseThrow(() -> new PostNotFoundException("Post not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Post not found with id: " + id));
     }
 
-    public Map<String, List<PostDto>> getGroupedPosts() {
+    public Map<String, List<Post>> getGroupedPosts() {
         List<Post> posts = postRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
 
         return posts.stream()
                 .collect(Collectors.groupingBy(
-                        post -> post.getCreatedAt().getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH).toUpperCase()
+                        post -> post.getCreatedAt().getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH)
+                                .toUpperCase()
                                 + " " + post.getCreatedAt().getYear(),
                         LinkedHashMap::new, // Giữ thứ tự
-                        Collectors.mapping(postMapper::toDto, Collectors.toList())
-                ));
+                        Collectors.toList()));
     }
 
-    public AboutMeDto getAboutMe() {
+    public AboutMe getAboutMe() {
         return aboutMeRepository.findById(1)
-                .map(aboutMeMapper::toDto)
-                .orElse(new AboutMeDto()); // Trả về DTO rỗng nếu không tìm thấy
+                .orElse(new AboutMe()); // Trả về entity rỗng nếu không tìm thấy
     }
 
-    public List<SocialDto> getSocials() {
-        return socialMapper.toDtoList(socialRepository.findAll());
+    public List<Social> getSocials() {
+        return socialRepository.findAll();
     }
 }

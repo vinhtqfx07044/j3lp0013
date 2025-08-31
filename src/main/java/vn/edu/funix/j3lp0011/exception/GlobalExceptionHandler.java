@@ -11,16 +11,17 @@ import org.springframework.web.servlet.ModelAndView;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(PostNotFoundException.class)
+    @ExceptionHandler(ResourceNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ModelAndView handlePostNotFoundException(PostNotFoundException ex) {
-        log.warn("Handling PostNotFoundException: {}", ex.getMessage());
+    public ModelAndView handleResourceNotFoundException(ResourceNotFoundException ex) {
+        log.warn("Handling ResourceNotFoundException: {}", ex.getMessage());
         ModelAndView mav = new ModelAndView("error-404");
         mav.addObject("errorMessage", ex.getMessage());
         return mav;
     }
 
     @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ModelAndView handleGenericException(Exception ex) {
         log.error("An unexpected error occurred", ex);
         ModelAndView mav = new ModelAndView("error");

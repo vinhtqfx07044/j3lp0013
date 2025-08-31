@@ -1,6 +1,6 @@
--- Initial data (INSERT INTO statements) for H2 Database
+-- Initial data (INSERT INTO statements) for PostgreSQL Database
 
--- Insert data for the about_me page
+-- Insert data for the about_me page 
 INSERT INTO about_me (id, content, author) VALUES
 (
   1,
@@ -13,23 +13,23 @@ INSERT INTO post (title, type, content, image_path, created_at) VALUES
 (
   'Essential skills for a happy life!',
   'blog',
-  'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. At eam doctus oportere, eam feugait delectus ne. Quo cu vulputate persecuti. Eum ut natum possim comprehensam, habeo dicta scaevola eu nec. Ea adhuc reformidans eam. Pri dolore epicuri eu, ne cum tantas fierent instructior. Pro ridens intellegam ut, sea at graecis scriptorem eloquentiam.<br/><br/>Per an labitur lucilius ullamcorper, esse erat ponderum ad vim. Possim laoreet suscipit ex pri, vix numquam eruditi feugait in. Nec maluisset complectitur te, at sea decore semper. Falli numquam perpetua sea et, tibique repudiandae an pro. Ut his solum persius postulant. Soluta nemore debitis ne eos, cum an scripta pericula partiendo.',
+  '<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p><p>At eam doctus oportere, eam feugait delectus ne. Quo cu vulputate persecuti. Eum ut natum possim comprehensam, habeo dicta scaevola eu nec. Ea adhuc reformidans eam. Pri dolore epicuri eu, ne cum tantas fierent instructior. Pro ridens intellegam ut, sea at graecis scriptorem eloquentiam.</p><p>Per an labitur lucilius ullamcorper, esse erat ponderum ad vim. Possim laoreet suscipit ex pri, vix numquam eruditi feugait in. Nec maluisset complectitur te, at sea decore semper. Falli numquam perpetua sea et, tibique repudiandae an pro. Ut his solum persius postulant. Soluta nemore debitis ne eos, cum an scripta pericula partiendo.</p>',
   'i2.jpg',
-  '2015-11-16'
+  '2015-11-16'::DATE
 ),
 (
   'You''ve gotta dance',
   'quote',
   'You''ve gotta dance like there''s nobody watching,<br/>Love like you''ll never be hurt,<br/>Sing like there''s nobody listening,<br/>And live like it''s heaven on earth. - William W. Purkey',
   '',
-  '2015-11-16'
+  '2015-11-16'::DATE
 ),
 (
   'Photo',
   'photo',
   '',
   'i1.jpg',
-  '2015-11-16'
+  '2015-11-16'::DATE
 );
 
 -- Insert data for social media links

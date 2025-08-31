@@ -3,36 +3,65 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>Home - My Blog</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
 <body>
-
     <div th:replace="~{fragments/header :: header(activePage='blog')}"></div>
 
-    <div class="page-content">
-        <div class="container">
-            <div class="blog-title">My Blog</div>
+    <div class="page-layout">
+        <main class="main-content">
+            <h3 class="page-title">My Blog</h3>
 
-            <div th:if="${posts == null or #lists.isEmpty(posts)}" class="no-data-message text-center">
+            <div th:if="${posts == null or #lists.isEmpty(posts)}" class="no-data">
                 No posts found.
             </div>
 
             <div th:if="${posts != null and not #lists.isEmpty(posts)}">
-                <th:block th:each="post : ${posts}">
-                    <div th:replace="~{fragments/post-entry :: post-entry(post=${post})}"></div>
-                </th:block>
+                <article th:each="post : ${posts}" class="post dotted-border">
+                    <img th:src="@{'/images/' + ${post.type} + '.png'}" class="post-icon" th:alt="${post.type}">
+                    <div class="post-body">
+                        <header class="post-header">
+                            <a class="post-title" th:href="@{/post/{id}(id=${post.id})}" th:text="${post.title}"></a>
+                            <div class="post-date" th:text="${#temporals.format(post.createdAt, 'dd-MM-yyyy')}"></div>
+                        </header>
+                        <div class="post-content">
+                            <th:block th:switch="${post.type}">
+                                <div th:case="'photo'">
+                                    <a th:href="@{/post/{id}(id=${post.id})}" class="post-photo-link">
+                                        <img class="post-image" th:src="@{'/images/' + ${post.imagePath}}"
+                                            alt="post photo">
+                                    </a>
+                                </div>
+                                <div th:case="'quote'" class="quote">
+                                    <q class="quote-text"
+                                        th:utext="${post.content.contains('-') ? post.content.substring(0, post.content.lastIndexOf('-')).trim() : post.content}"></q>
+                                    <p class="quote-author" th:if="${post.content.contains('-')}"
+                                        th:text="${post.content.substring(post.content.lastIndexOf('-') + 1).trim()}">
+                                    </p>
+                                </div>
+                                <div th:case="*">
+                                    <a th:if="${post.imagePath != null and !post.imagePath.isEmpty()}"
+                                        class="post-content-image-link" th:href="@{/post/{id}(id=${post.id})}">
+                                        <img class="post-image" th:src="@{'/images/' + ${post.imagePath}}"
+                                            alt="post photo">
+                                    </a>
+                                    <p th:utext="${post.content}"></p>
+                                </div>
+                            </th:block>
+                        </div>
+                    </div>
+                </article>
             </div>
-            
-            <a class="overview-link" th:href="@{/overview}">Overview</a>
-        </div>
 
-        <div th:replace="~{fragments/side-banner :: side-banner(socials=${socials})}"></div>
+            <a class="overview-link" th:href="@{/overview}">Overview</a>
+        </main>
+
+        <div th:replace="~{fragments/side-banner :: side-banner}"></div>
     </div>
 
     <div th:replace="~{fragments/footer :: footer}"></div>
-
 </body>
 
 </html>

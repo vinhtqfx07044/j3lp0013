@@ -8,38 +8,31 @@
 </head>
 
 <body>
-
     <div th:replace="~{fragments/header :: header(activePage='aboutMe')}"></div>
 
-    <div class="page-content">
-        <div class="container">
-            <div class="blog-title">About Me</div>
+    <div class="page-layout">
+        <main class="main-content">
+            <h3 class="page-title">About Me</h3>
 
-            <div th:if="${aboutMe == null or aboutMe.content == null}" class="no-data-message text-center">
+            <div th:if="${aboutMe == null or aboutMe.content == null}" class="no-data">
                 No information available.
             </div>
 
             <div th:if="${aboutMe != null and aboutMe.content != null}">
-                <div class="post-content about-separator dotted-border">
-                    <!-- Use utext for unescaped text to render <br/> tags -->
-                    <p th:utext="${aboutMe.content}">About me content...</p>
+                <div class="about-me-text dotted-border">
+                    <p th:utext="${aboutMe.content}"></p>
                 </div>
-
-                <div class="signature-wrapper">
+                <div class="about-me-signature-box">
                     <p>Kind regards</p>
-                    <p class="signature" th:text="${aboutMe.author}">Vivianne Russell</p>
+                    <p class="about-me-signature" th:text="${aboutMe.author}"></p>
                 </div>
             </div>
+        </main>
 
-        </div>
-
-        <!-- Side Banner -->
-        <div th:replace="~{fragments/side-banner :: side-banner(socials=${socials})}"></div>
-
+        <div th:replace="~{fragments/side-banner :: side-banner}"></div>
     </div>
 
     <div th:replace="~{fragments/footer :: footer}"></div>
-
 </body>
 
 </html>

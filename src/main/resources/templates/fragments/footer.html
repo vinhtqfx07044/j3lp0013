@@ -2,13 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <body>
-    <footer th:fragment="footer">
+    <footer class="footer" th:fragment="footer">
         <hr>
-        <div>
-            <!-- The viewCounter is an array of characters set in the SessionListener -->
-            <div class="footer-page-counter" th:if="${session.viewCounter != null}">
-                <span th:each="digit : ${session.viewCounter}" class="footer-page-counter-item" th:text="${digit}">
-                </span>
+        <div class="footer-container">
+            <div class="footer-credit"><a href="#">Created with SimpleSite</a></div>
+            <div class="footer-page-counter" th:if="${viewCounter != null}">
+                <span th:each="digit : ${viewCounter}" class="footer-page-counter-item" th:text="${digit}"></span>
             </div>
         </div>
     </footer>
