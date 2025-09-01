@@ -88,13 +88,13 @@ public class BlogService {
                         post -> post.getCreatedAt().getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH)
                                 .toUpperCase()
                                 + " " + post.getCreatedAt().getYear(),
-                        LinkedHashMap::new, // Giữ thứ tự
+                        LinkedHashMap::new,
                         Collectors.toList()));
     }
 
     public AboutMe getAboutMe() {
         return aboutMeRepository.findById(1)
-                .orElse(new AboutMe()); // Trả về entity rỗng nếu không tìm thấy
+                .orElse(new AboutMe());
     }
 
     public List<SocialDTO> getSocials() {

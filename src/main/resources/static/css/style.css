@@ -1,7 +1,12 @@
+/* =============================================================================
+   IMPORTS
+   ============================================================================= */
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Brush+Script+MT&display=swap');
 
-/* CSS Custom Properties */
+/* =============================================================================
+   CSS CUSTOM PROPERTIES
+   ============================================================================= */
 :root {
     /* Colors */
     --red: #CD0D18;
@@ -41,7 +46,9 @@
     --radius-xl: 18px;
 }
 
-/* Global Styles */
+/* =============================================================================
+   GLOBAL STYLES
+   ============================================================================= */
 html {
     background-color: var(--beige);
     background-image: url('../images/background.jpg');
@@ -62,7 +69,10 @@ ul {
     margin: 0;
 }
 
-/* Header Styles */
+/* =============================================================================
+   LAYOUT COMPONENTS
+   ============================================================================= */
+/* Header */
 .header {
     padding: var(--space-6) var(--space-6) 0 var(--space-6);
     background-color: var(--cream);
@@ -82,6 +92,7 @@ ul {
     font-weight: bold;
 }
 
+/* Navigation */
 .header-nav {
     margin-top: var(--space-6);
     padding-bottom: var(--space-2);
@@ -112,7 +123,6 @@ ul {
     margin-right: var(--space-6);
 }
 
-/* Page Title */
 .page-title {
     font-size: 2rem;
     font-family: var(--font-title);
@@ -120,34 +130,26 @@ ul {
     font-weight: bold;
 }
 
-/* Utility Classes */
-.dotted-border {
-    border-bottom: 3px dotted var(--border-color);
+/* Footer */
+.footer {
+    padding: var(--space-4);
 }
 
-.error-message {
-    color: var(--red);
-    background-color: var(--red-bg);
-    margin: var(--space-2) 0;
-    padding: var(--space-6);
-    border-radius: var(--radius-md);
-    border: 1px solid var(--red);
-}
-
-.navigation-link {
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-top: var(--space-6);
 }
 
-.no-data {
-    font-style: italic;
-    color: var(--gray);
-    margin-top: var(--space-6);
-    padding: var(--space-6);
-    background-color: var(--light-gray);
-    border: 1px dashed var(--light);
-    text-align: center;
+.footer-credit a {
+    color: var(--black);
+    text-decoration: underline;
 }
 
+/* =============================================================================
+   CONTENT COMPONENTS
+   ============================================================================= */
 /* Post Styles */
 .post {
     display: flex;
@@ -196,11 +198,11 @@ h3.post-title {
     line-height: 1.5;
 }
 
-
 .post-content p {
     margin: 0 0 var(--space-4) 0;
 }
 
+/* Post Images */
 .post-image {
     width: 100%;
     border-radius: var(--radius-lg);
@@ -237,15 +239,9 @@ h3.post-title {
     margin-top: var(--space-2);
 }
 
-/* Overview Link */
-.overview-link {
-    display: block;
-    text-align: center;
-    color: var(--black);
-    margin-top: var(--space-8);
-}
-
-/* Side Banner Styles */
+/* =============================================================================
+   SIDEBAR COMPONENTS
+   ============================================================================= */
 .side-banner {
     padding: var(--space-2);
 }
@@ -284,7 +280,17 @@ h3.post-title {
     text-decoration: underline;
 }
 
-/* Overview Styles */
+/* =============================================================================
+   PAGE-SPECIFIC COMPONENTS
+   ============================================================================= */
+/* Overview Page */
+.overview-link {
+    display: block;
+    text-align: center;
+    color: var(--black);
+    margin-top: var(--space-8);
+}
+
 .overview-list {
     margin-top: var(--space-6);
 }
@@ -307,7 +313,7 @@ h3.post-title {
     padding: var(--space-2) var(--space-4);
 }
 
-.overview-group + .overview-item {
+.overview-group+.overview-item {
     border-top: none;
 }
 
@@ -316,7 +322,7 @@ h3.post-title {
     text-decoration: underline;
 }
 
-/* About Me Styles */
+/* About Me Page */
 .about-me-text {
     padding-bottom: var(--space-4);
 }
@@ -331,24 +337,10 @@ h3.post-title {
     margin: 0;
 }
 
-/* Footer Styles */
-.footer {
-    padding: var(--space-4);
-}
-
-.footer-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: var(--space-6);
-}
-
-.footer-credit a {
-    color: var(--black);
-    text-decoration: underline;
-}
-
-/* Page Counter Styles - Following template pattern */
+/* =============================================================================
+   SPECIAL COMPONENTS
+   ============================================================================= */
+/* Page Counter */
 .footer-page-counter {
     display: flex;
     gap: 2px;
@@ -372,7 +364,6 @@ h3.post-title {
     text-align: center;
 }
 
-/* Digital display horizontal line effect */
 .footer-page-counter-item::after {
     content: '';
     position: absolute;
@@ -383,4 +374,34 @@ h3.post-title {
     background-color: var(--light);
     z-index: 1;
     opacity: 0.7;
+}
+
+/* =============================================================================
+   UTILITY CLASSES
+   ============================================================================= */
+.dotted-border {
+    border-bottom: 3px dotted var(--border-color);
+}
+
+.error-message {
+    color: var(--red);
+    background-color: var(--red-bg);
+    margin: var(--space-2) 0;
+    padding: var(--space-6);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--red);
+}
+
+.navigation-link {
+    margin-top: var(--space-6);
+}
+
+.no-data {
+    font-style: italic;
+    color: var(--gray);
+    margin-top: var(--space-6);
+    padding: var(--space-6);
+    background-color: var(--light-gray);
+    border: 1px dashed var(--light);
+    text-align: center;
 }

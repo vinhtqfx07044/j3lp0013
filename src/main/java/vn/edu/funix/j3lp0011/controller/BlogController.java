@@ -17,7 +17,6 @@ import vn.edu.funix.j3lp0011.service.ViewCounterService;
 public class BlogController {
 
     private final BlogService blogService;
-    private final ViewCounterService viewCounterService;
     private final SessionService sessionService;
 
     @GetMapping({ "/", "/home" })
