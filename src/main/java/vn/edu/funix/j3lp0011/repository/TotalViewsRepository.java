@@ -9,4 +9,8 @@ public interface TotalViewsRepository extends JpaRepository<TotalViews, Integer>
     @Modifying
     @Query("UPDATE TotalViews v SET v.viewCount = v.viewCount + 1 WHERE v.id = 1")
     void incrementViewCount();
+
+    @Modifying
+    @Query(value = "UPDATE total_views SET view_count = view_count + 1 WHERE id = 1 RETURNING view_count", nativeQuery = true)
+    int incrementAndGetViewCount();
 }

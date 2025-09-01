@@ -14,10 +14,11 @@ public class ViewCounterService {
 
     @Transactional
     public synchronized int incrementAndGetViews() {
-        totalViewsRepository.incrementViewCount();
-        return totalViewsRepository.findById(1)
-                .map(TotalViews::getViewCount)
-                .orElse(0); // Return 0 if somehow the record is missing
+        try {
+            return totalViewsRepository.incrementAndGetViewCount();
+        } catch (Exception e) {
+            return 0;
+        }
     }
 
     public int getCurrentViews() {

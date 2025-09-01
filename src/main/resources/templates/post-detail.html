@@ -29,16 +29,14 @@
                                 <img class="post-image" th:src="@{'/images/' + ${post.imagePath}}" alt="post photo">
                             </div>
                             <div th:case="'quote'" class="quote">
-                                <q class="quote-text"
-                                    th:utext="${post.content.contains('-') ? post.content.substring(0, post.content.lastIndexOf('-')).trim() : post.content}"></q>
-                                <p class="quote-author" th:if="${post.content.contains('-')}"
-                                    th:text="${post.content.substring(post.content.lastIndexOf('-') + 1).trim()}"></p>
+                                <q class="quote-text" th:utext="${post.quoteText}"></q>
+                                <p class="quote-author" th:if="${post.quoteAuthor != null}"
+                                    th:text="${post.quoteAuthor} + ' -'"></p>
                             </div>
                             <div th:case="*">
                                 <a th:if="${post.imagePath != null and !post.imagePath.isEmpty()}"
                                     class="post-content-image-link" th:href="@{/post/{id}(id=${post.id})}">
-                                    <img class="post-image" th:src="@{'/images/' + ${post.imagePath}}"
-                                        alt="post photo">
+                                    <img class="post-image" th:src="@{'/images/' + ${post.imagePath}}" alt="post photo">
                                 </a>
                                 <p th:utext="${post.content}"></p>
                             </div>

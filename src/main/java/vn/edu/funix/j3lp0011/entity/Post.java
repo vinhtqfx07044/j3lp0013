@@ -19,4 +19,18 @@ public class Post {
     private String imagePath;
     @Column(name = "created_at")
     private LocalDate createdAt;
+
+    public String getQuoteText() {
+        if ("quote".equals(this.type) && this.content != null && this.content.contains("-")) {
+            return this.content.substring(0, this.content.lastIndexOf('-')).trim();
+        }
+        return this.content;
+    }
+
+    public String getQuoteAuthor() {
+        if ("quote".equals(this.type) && this.content != null && this.content.contains("-")) {
+            return this.content.substring(this.content.lastIndexOf('-') + 1).trim();
+        }
+        return null;
+    }
 }
