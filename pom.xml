@@ -10,10 +10,10 @@
         <relativePath />
     </parent>
     <groupId>vn.edu.funix</groupId>
-    <artifactId>j3lp0018</artifactId>
+    <artifactId>j3lp0011</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>j3lp0018</name>
-    <description>My Fashion Blog Application</description>
+    <name>j3lp0011</name>
+    <description>Blogging about my life</description>
 
     <properties>
         <java.version>21</java.version>

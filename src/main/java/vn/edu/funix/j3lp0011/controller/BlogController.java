@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import vn.edu.funix.j3lp0011.service.BlogService;
 import vn.edu.funix.j3lp0011.service.SessionService;
-import vn.edu.funix.j3lp0011.service.ViewCounterService;
 
 @Controller
 @RequiredArgsConstructor
