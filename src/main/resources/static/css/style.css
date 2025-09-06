@@ -1,66 +1,21 @@
-/* =============================================================================
-   IMPORTS
-   ============================================================================= */
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Brush+Script+MT&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@400;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400&display=swap');
 
-/* =============================================================================
-   CSS CUSTOM PROPERTIES
-   ============================================================================= */
-:root {
-    /* Colors */
-    --red: #CD0D18;
-    --dark: #6d5160;
-    --light: #ccc;
-    --black: #000;
-    --white: #fff;
-    --gray: #666;
-    --light-gray: #f5f5f5;
-    --green: #468847;
-    --green-bg: #dff0d8;
-    --green-light: #d6e9c6;
-    --red-bg: #FFD2D2;
-    --cream: #efeae2;
-    --beige: #c2baaf;
-    --border-color: rgba(0, 0, 0, 0.2);
-    --shadow-dark: #595959;
-
-    /* Typography */
-    --font-family: 'Calibri', sans-serif;
-    --font-title: 'Calibri', cursive;
-    --font-signature: 'Brush Script MT', cursive;
-    --font-mono: 'Courier New', monospace;
-
-    /* Spacing System */
-    --space-1: 0.25rem;
-    --space-2: 0.5rem;
-    --space-4: 1rem;
-    --space-6: 1.5rem;
-    --space-8: 2rem;
-    --space-12: 3rem;
-
-    /* Border Radius System */
-    --radius-sm: 4px;
-    --radius-md: 8px;
-    --radius-lg: 15px;
-    --radius-xl: 18px;
-}
-
-/* =============================================================================
-   GLOBAL STYLES
-   ============================================================================= */
 html {
-    background-color: var(--beige);
+    background-color: #c2baaf;
     background-image: url('../images/background.jpg');
-    font-family: var(--font-family);
+    font-family: 'Trebuchet MS', Tahoma, Verdana, Arial, sans-serif;
 }
 
 body {
-    width: 1000px;
-    margin: 0 auto var(--space-12);
-    background-color: var(--white);
-    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
-    box-shadow: 0 0 17px var(--dark);
+    max-width: 980px;
+    margin: 0 auto 3rem;
+    background-color: #fff;
+    border-radius: 0 0 15px 15px;
+    box-shadow: 0 0 17px #6d5160;
+    font-size: 16px;
+    line-height: 22px;
 }
 
 ul {
@@ -69,99 +24,101 @@ ul {
     margin: 0;
 }
 
-/* =============================================================================
-   LAYOUT COMPONENTS
-   ============================================================================= */
-/* Header */
+a {
+    color: #000;
+    text-decoration: none;
+}
+
+a:hover,
+a:focus {
+    color: rgba(0, 0, 0, 0.8);
+    text-decoration: underline;
+}
+
 .header {
-    padding: var(--space-6) var(--space-6) 0 var(--space-6);
-    background-color: var(--cream);
-    color: var(--dark);
+    padding: 1rem 1.5rem 0 1.5rem;
+    background-color: #efeae2;
+    color: #6d5160;
 }
 
 .header-title {
     font-size: 47px;
-    margin: 0;
-    font-family: var(--font-title);
-    font-weight: bold;
+    margin: 2rem 0 1.25rem 0;
+    font-family: 'Alegreya Sans', Helvetica, Arial, sans-serif;
+    font-weight: 800;
 }
 
 .header-subtitle {
-    font-size: larger;
-    margin: var(--space-1) 0 0 0;
-    font-weight: bold;
+    font-size: 22px;
+    margin: 0 0 3rem 0;
+    font-weight: 400;
+    font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
 }
 
-/* Navigation */
 .header-nav {
-    margin-top: var(--space-6);
-    padding-bottom: var(--space-2);
+    margin-top: 1.5rem;
+    padding-bottom: 0.5rem;
 }
 
 .header-nav-list {
     display: flex;
-    gap: var(--space-6);
+    gap: 1.5rem;
 }
 
 .header-nav-link {
     text-decoration: none;
-    color: var(--black);
+    color: #000;
 }
 
 .header-nav-link.active {
     font-weight: bold;
 }
 
-/* Page Layout */
 .page-layout {
-    padding: var(--space-8) var(--space-4) var(--space-4) var(--space-4);
+    padding: 2rem 1rem 1rem 1rem;
     display: grid;
     grid-template-columns: 75% 25%;
 }
 
 .main-content {
-    margin-right: var(--space-6);
+    margin-right: 1.5rem;
 }
 
 .page-title {
     font-size: 2rem;
-    font-family: var(--font-title);
-    margin: 0 0 var(--space-6) 0;
+    font-family: 'Alegreya Sans', Helvetica, Arial, sans-serif;
+    margin: 1rem 0.25rem;
     font-weight: bold;
 }
 
-/* Footer */
 .footer {
-    padding: var(--space-4);
+    padding: 1rem;
 }
 
 .footer-container {
+    padding: 2rem 0;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-top: var(--space-6);
+    justify-content: space-between;
 }
 
 .footer-credit a {
-    color: var(--black);
+    color: #000;
     text-decoration: underline;
 }
 
-/* =============================================================================
-   CONTENT COMPONENTS
-   ============================================================================= */
-/* Post Styles */
 .post {
     display: flex;
-    gap: var(--space-4);
-    padding-bottom: var(--space-6);
-    margin-bottom: var(--space-6);
+    gap: 1rem;
+    padding: 22px 0;
+    margin-top: 16px;
+    border-bottom: 3px dotted rgba(0, 0, 0, 0.2);
 }
 
 .post-icon {
-    padding-top: var(--space-2);
-    height: 32px;
-    width: 32px;
+    padding: 0.5rem 22px 0 0;
+    height: 48px;
+    width: 48px;
     flex-shrink: 0;
 }
 
@@ -173,13 +130,13 @@ ul {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    margin-bottom: var(--space-4);
+    margin-bottom: 1rem;
 }
 
 .post-title {
     font-size: larger;
     font-weight: bold;
-    color: var(--black);
+    color: #000;
     text-decoration: underline;
 }
 
@@ -190,6 +147,8 @@ h3.post-title {
 .post-date {
     font-size: 14px;
     font-style: italic;
+    font-weight: 400;
+    font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
     white-space: nowrap;
 }
 
@@ -199,21 +158,21 @@ h3.post-title {
 }
 
 .post-content p {
-    margin: 0 0 var(--space-4) 0;
+    margin: 0 0 1rem 0;
+    font-weight: normal;
 }
 
-/* Post Images */
 .post-image {
     width: 100%;
-    border-radius: var(--radius-lg);
+    border-radius: 15px;
     height: auto;
-    padding-top: var(--space-2);
+    padding-top: 0.5rem;
 }
 
 .post-content-image-link {
     float: left;
     width: 50%;
-    margin: 0 var(--space-4) var(--space-2) 0;
+    margin: 0 1rem 0.5rem 0;
 }
 
 .post-photo-link {
@@ -222,11 +181,10 @@ h3.post-title {
     margin: 0;
 }
 
-/* Quote Styles */
 .quote {
-    border-right: 5px solid var(--black);
+    border-right: 5px solid #000;
     text-align: right;
-    padding-right: var(--space-6);
+    padding-right: 1.5rem;
 }
 
 .quote-text {
@@ -236,40 +194,37 @@ h3.post-title {
 
 .quote-author {
     font-size: 14px;
-    margin-top: var(--space-2);
+    margin-top: 0.5rem;
 }
 
-/* =============================================================================
-   SIDEBAR COMPONENTS
-   ============================================================================= */
 .side-banner {
-    padding: var(--space-2);
+    padding: 0.5rem;
 }
 
 .side-banner-container {
-    padding: var(--space-4);
-    border-radius: var(--radius-md);
-    box-shadow: 0 0 5px var(--dark);
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 0 5px #6d5160;
 }
 
 .side-banner-title {
     font-size: larger;
-    margin-bottom: var(--space-4);
+    margin-bottom: 1rem;
     font-weight: bold;
 }
 
 .side-banner-list {
     display: flex;
     flex-direction: column;
-    gap: var(--space-1);
+    gap: 0.25rem;
 }
 
 .side-banner-link {
-    color: var(--black);
+    color: #000;
     text-decoration: none;
     display: flex;
     align-items: center;
-    gap: var(--space-1);
+    gap: 0.25rem;
 }
 
 .side-banner-link:hover .side-banner-link-text {
@@ -280,37 +235,34 @@ h3.post-title {
     text-decoration: underline;
 }
 
-/* =============================================================================
-   PAGE-SPECIFIC COMPONENTS
-   ============================================================================= */
-/* Overview Page */
 .overview-link {
     display: block;
     text-align: center;
-    color: var(--black);
-    margin-top: var(--space-8);
+    color: #000;
+    margin-top: 2rem;
+    text-decoration: underline !important;
 }
 
 .overview-list {
-    margin-top: var(--space-6);
+    margin-top: 1.5rem;
 }
 
 .overview-group {
-    border-top: 1px solid var(--border-color);
-    border-bottom: 1px solid var(--border-color);
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     font-weight: bold;
-    margin-top: var(--space-6);
+    margin-top: 1.5rem;
     display: flex;
     justify-content: space-between;
-    padding: var(--space-2) var(--space-4);
+    padding: 0.5rem;
 }
 
 .overview-item {
-    border-top: 1px solid var(--border-color);
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: var(--space-2) var(--space-4);
+    padding: 0.5rem;
 }
 
 .overview-group+.overview-item {
@@ -318,29 +270,24 @@ h3.post-title {
 }
 
 .overview-item-title {
-    color: var(--black);
+    color: #000;
     text-decoration: underline;
 }
 
-/* About Me Page */
 .about-me-text {
-    padding-bottom: var(--space-4);
+    padding-bottom: 1rem;
 }
 
 .about-me-signature-box {
-    margin-top: var(--space-12);
+    margin-top: 3rem;
 }
 
 .about-me-signature {
-    font-family: var(--font-signature);
+    font-family: 'Brush Script MT', cursive;
     font-size: 47px;
     margin: 0;
 }
 
-/* =============================================================================
-   SPECIAL COMPONENTS
-   ============================================================================= */
-/* Page Counter */
 .footer-page-counter {
     display: flex;
     gap: 2px;
@@ -348,60 +295,57 @@ h3.post-title {
 }
 
 .footer-page-counter-item {
-    display: inline-block;
-    position: relative;
-    background-color: #fdfdfd;
-    color: var(--black);
-    font-size: 14px;
-    font-weight: bold;
-    font-family: var(--font-mono);
-    padding: 3px 4px;
+    border: solid 0 #000;
+    background: #fff;
+    font-size: 14.4px;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 14.4px;
+    padding: 2px 2px 1px;
+    margin: 3px 2px 0 0;
     border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border: 1px solid;
-    border-color: #eee #ccc #ccc #eee;
-    min-width: 8px;
+    box-shadow: 0 1px 2px #595959;
     text-align: center;
+    color: #000;
+    font-weight: 700;
+    width: 10px;
+    position: relative;
 }
 
-.footer-page-counter-item::after {
-    content: '';
-    position: absolute;
-    top: 40%;
-    left: 0;
-    right: 0;
+.footer-page-counter-item:before {
+    content: "";
+    display: block;
     height: 1px;
-    background-color: var(--light);
-    z-index: 1;
-    opacity: 0.7;
+    position: absolute;
+    top: 52%;
+    left: 0;
+    margin-top: -1px;
+    background: rgba(0, 0, 0, 0.25);
+    width: 100%;
 }
 
-/* =============================================================================
-   UTILITY CLASSES
-   ============================================================================= */
 .dotted-border {
-    border-bottom: 3px dotted var(--border-color);
+    border-bottom: 3px dotted rgba(0, 0, 0, 0.2);
 }
 
 .error-message {
-    color: var(--red);
-    background-color: var(--red-bg);
-    margin: var(--space-2) 0;
-    padding: var(--space-6);
-    border-radius: var(--radius-md);
-    border: 1px solid var(--red);
+    color: #CD0D18;
+    background-color: #FFD2D2;
+    margin: 0.5rem 0;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #CD0D18;
 }
 
 .navigation-link {
-    margin-top: var(--space-6);
+    margin-top: 1.5rem;
 }
 
 .no-data {
     font-style: italic;
-    color: var(--gray);
-    margin-top: var(--space-6);
-    padding: var(--space-6);
-    background-color: var(--light-gray);
-    border: 1px dashed var(--light);
+    color: #666;
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    background-color: #f5f5f5;
+    border: 1px dashed #ccc;
     text-align: center;
 }
