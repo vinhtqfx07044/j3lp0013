@@ -35,6 +35,23 @@ a:focus {
     text-decoration: underline;
 }
 
+.page-layout {
+    padding: 2rem 1rem 1rem 1rem;
+    display: grid;
+    grid-template-columns: 75% 25%;
+}
+
+.main-content {
+    margin-right: 1.5rem;
+}
+
+.page-title {
+    font-size: 2rem;
+    font-family: 'Alegreya Sans', Helvetica, Arial, sans-serif;
+    margin: 1rem 0.25rem;
+    font-weight: bold;
+}
+
 .header {
     padding: 1rem 1.5rem 0 1.5rem;
     background-color: #efeae1;
@@ -72,39 +89,6 @@ a:focus {
 
 .header-nav-link.active {
     font-weight: bold;
-}
-
-.page-layout {
-    padding: 2rem 1rem 1rem 1rem;
-    display: grid;
-    grid-template-columns: 75% 25%;
-}
-
-.main-content {
-    margin-right: 1.5rem;
-}
-
-.page-title {
-    font-size: 2rem;
-    font-family: 'Alegreya Sans', Helvetica, Arial, sans-serif;
-    margin: 1rem 0.25rem;
-    font-weight: bold;
-}
-
-.footer {
-    padding: 1rem;
-}
-
-.footer-container {
-    padding: 2rem 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.footer-credit a {
-    color: #000;
-    text-decoration: underline;
 }
 
 .post {
@@ -238,8 +222,8 @@ h3.post-title {
 .overview-link {
     display: block;
     text-align: center;
-    color: #000;
     margin-top: 2rem;
+    color: #000;
     text-decoration: underline !important;
 }
 
@@ -248,21 +232,21 @@ h3.post-title {
 }
 
 .overview-group {
-    border-top: 1px solid rgba(0, 0, 0, 0.2);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    margin: 1.5rem 0 0;
+    padding: 0.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-width: 1px 0;
     font-weight: bold;
-    margin-top: 1.5rem;
     display: flex;
     justify-content: space-between;
-    padding: 0.5rem;
 }
 
 .overview-item {
+    padding: 0.5rem;
     border-top: 1px solid rgba(0, 0, 0, 0.2);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.5rem;
 }
 
 .overview-group+.overview-item {
@@ -286,6 +270,22 @@ h3.post-title {
     font-family: 'Brush Script MT', cursive;
     font-size: 47px;
     margin: 0;
+}
+
+.footer {
+    padding: 1rem;
+}
+
+.footer-container {
+    padding: 2rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.footer-credit a {
+    color: #000;
+    text-decoration: underline;
 }
 
 .footer-page-counter {
